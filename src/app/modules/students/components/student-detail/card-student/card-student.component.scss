@@ -1,0 +1,125 @@
+.card {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    background-color: #ffffff;
+    gap: 20px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    max-height: 30vh;
+    overflow: hidden;
+        
+    .left-info {
+        grid-column: span 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-height: 100%;
+        overflow: hidden;
+        align-items: center;
+
+        .svg-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 1;
+            min-width: 100px;
+            max-width: 150px;
+            border: 1px solid #5e5e5e;
+            padding: 20px 10px;
+            border-radius: 15px;
+
+            svg {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                fill: #5e5e5e;
+            }
+
+        }
+
+
+    }
+
+    .rigth-info {
+        grid-column: span 4;
+        display: flex;
+        flex-direction: column;
+
+        .main-info {
+            h3 {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 2rem;
+                font-weight: 800;
+            }
+
+            .contact-info {
+                display: flex;
+                justify-content: space-between;
+                font-size: 1rem;
+                font-weight: 700;
+                .info-number{
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .info-email{
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+           
+            }
+
+        }
+
+
+        .info-credential {
+            margin-top: 25px;
+        }
+
+    }
+
+}
+
+
+.actions-buttons {
+    height: 100%;
+    display: flex;
+    align-items: end;
+    flex-direction: row;
+
+    .config-buttons {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+        button {
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            font-size: .9rem;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .button-delete {
+            background-color: #EF3826;
+        }
+
+        .button-update {
+            background-color: #00B69B;
+        }
+    }
+}
+
+
+

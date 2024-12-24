@@ -1,0 +1,29 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .main-info {
+        flex: 1;
+        margin: 20px;
+    }
+}
+
+// Buttons
+.actions {
+    text-align: end;
+    .add-button {
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        font-size: 1rem;
+        background-color: #4880FF;
+    }
+}
+
+
+.container-table{
+    flex: 2;
+}

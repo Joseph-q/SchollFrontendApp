@@ -1,0 +1,17 @@
+<div class="modal">
+    <div class="container-modal">
+        @if (disableBackButton == false) {
+        <div class="top-modal">
+            <button class="back-button" (click)="OnCloseModal()">
+                <svg viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M7.74369 10.4064L3.24113 5.99999L7.74369 1.59359L6.35753 0.23999L0.458984 5.99999L6.35753 11.76L7.74369 10.4064Z" />
+                </svg>
+            </button>
+        </div>
+        }
+        <div class="main-modal">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

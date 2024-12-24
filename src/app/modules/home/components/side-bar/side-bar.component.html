@@ -1,0 +1,51 @@
+<div class="nav-container">
+
+    <mat-nav-list class="nav-items">
+
+        <a mat-list-item class="item-nav" routerLink='/historial' routerLinkActive="active">
+            <mat-icon matListItemIcon>history</mat-icon>
+            <span matListItemTitle>
+                Historial
+            </span>
+        </a>
+
+        <a mat-list-item class="item-nav" routerLink="/students" routerLinkActive="active">
+            <mat-icon matListItemIcon>school</mat-icon>
+            <span matListItemTitle>
+                Estudiantes
+            </span>
+        </a>
+
+
+        <!-- <a mat-list-item class="item-nav" routerLink='/balancing' routerLinkActive="active">
+            <mat-icon matListItemIcon>point_of_sale</mat-icon>
+            <span matListItemTitle>
+                Corte de caja
+            </span>
+        </a> -->
+
+
+
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+
+    <section class="courses-section">
+        <div class="nav-header">
+            <button mat-raised-button extended class="add-button" (click)="showModal.emit()">
+                <mat-icon>add</mat-icon>
+                <span></span>
+                Agregar Curso</button>
+        </div>
+        <mat-nav-list class="nav-items">
+            @for (course of (courses$ |async); track $index) {
+            <a mat-list-item class="item-nav" routerLinkActive="active course" [routerLink]="onClickRoute(course.id)">
+                <span matListItemTitle>
+                    {{course.name}}
+                </span>
+            </a>
+            }
+        </mat-nav-list>
+    </section>
+
+</div>
+

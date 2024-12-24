@@ -1,0 +1,43 @@
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #drawer class="side-nav" mode="side" [opened]="true" [style.width]="drawerExpanded ? '240px' : '80px'"
+    position="end">
+    <nav>
+      <a routerLink="assistances" routerLinkActive="active-link" class="nav-link">
+        <mat-icon>event</mat-icon>
+      </a>
+      <a routerLink="qr-code" routerLinkActive="active-link" class="nav-link">
+        <mat-icon>qr_code</mat-icon>
+      </a>
+      <!-- <a routerLink="courses"  routerLinkActive="active-link"  class="nav-link">
+        <mat-icon>school</mat-icon>
+      </a> -->
+    </nav>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div class="container-card">
+      <app-card-student [studentId]="studentId" (onUpdate)="ShowupdateForm=true"
+        (onDelete)="ShowDeleteForm=true"></app-card-student>
+    </div>
+
+    <div class="scrollable-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+
+
+
+@if(ShowDeleteForm){
+<app-warning-delete (cancel)="ShowDeleteForm=false" [studentId]="studentId"
+  (accept)="OnDeleteStudent()"></app-warning-delete>
+}
+
+@if(ShowupdateForm){
+<app-modal (closeModal)="ShowupdateForm=false">
+  <app-update-student-form [studentId]="studentId"></app-update-student-form>
+</app-modal>
+}

@@ -1,0 +1,49 @@
+<div class="main">
+    @if(studentsResponse$ | async; as student){
+    <section class="main-info">
+        <app-card-statistics [description]="'Total alumnos'" [numberStadistic]="student.metadata.total">
+            <two-persons-svg></two-persons-svg>
+        </app-card-statistics>
+
+
+    </section>
+    <app-filter-table scrollable class="container-table">
+        <filter-list>
+            <h3>Estudiantes</h3>
+        </filter-list>
+
+        <filter-details>
+            <div class="actions">
+                <button mat-flat-button class="add-button" (click)="OnClickAdd()">Agregar +</button>
+            </div>
+        </filter-details>
+
+
+        <filter-table>
+            <app-students-table (updateStudent)="OnClickUpdate($event)" (deleteStudent)="OnClickDelete($event)"
+                [datasource]="student.data" [(totalItems)]="student.metadata.total" [(pageIndex)]="pageIndex"
+                [(pageSize)]="pageSize"></app-students-table>
+        </filter-table>
+    </app-filter-table>
+
+    }
+
+</div>
+
+
+
+@if(activeModal === "update"){
+<app-modal (closeModal)="closeModal()">
+    <app-update-student-form [studentId]="studentId.toString()" (updated)="closeModal()"></app-update-student-form>
+</app-modal>
+}
+
+@if(activeModal === "add"){
+<app-modal (closeModal)="closeModal()">
+    <app-add-student-form (created)="closeModal()"></app-add-student-form>
+</app-modal>
+}
+
+@if (activeModal === "delete") {
+<app-warning-delete (cancel)="closeModal()" [studentId]="studentId.toString()"></app-warning-delete>
+}

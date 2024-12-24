@@ -1,0 +1,16 @@
+.main-info {
+  display: flex;
+  flex-direction: column;
+}
+
+tr.mat-mdc-footer-row {
+  font-weight: 800;
+}
+
+.mat-mdc-header-row{
+  position: sticky;
+  top: 0;
+}
+.mat-mdc-table-sticky {
+  border-top: 1px solid #e0e0e0;
+}

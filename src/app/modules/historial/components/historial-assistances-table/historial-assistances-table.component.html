@@ -1,0 +1,19 @@
+<section class="container-table">
+    <table mat-table [dataSource]="((assistanceHistorial$ | async)?.data) ?? []" matSort matSortActive="date"
+        matSortDisableClear matSortDirection="desc">
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> FECHA </th>
+            <td mat-cell *matCellDef="let element"> {{(element.date | date: 'dd MMMM')+" de " + (element.date |
+                date: 'yyyy')}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> TOTAL</th>
+            <td mat-cell *matCellDef="let element">{{element.total}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</section>

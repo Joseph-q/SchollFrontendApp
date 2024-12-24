@@ -1,0 +1,79 @@
+.table-container {
+    position: relative;
+
+}
+
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+    cursor: pointer;
+    user-select: none;
+
+   
+
+}
+.mat-mdc-row:hover .mat-mdc-cell{
+    background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+.mat-mdc-paginator{
+    width: 250px;
+}
+
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-svg {
+    background-color: transparent;
+    /* Fondo transparente */
+    border: none;
+    /* Sin bordes */
+    padding: 10px;
+    /* Espaciado alrededor del icono */
+    cursor: pointer;
+    /* Puntero cuando se pasa sobre el botón */
+    display: inline-flex;
+    /* Para centrar el SVG */
+    align-items: center;
+    justify-content: center;
+
+}
+
+.button-add {
+    svg {
+        width: 30px;
+        /* Tamaño del SVG */
+        height: 30px;
+        fill: #00B69B;
+
+       
+    }
+
+    :hover{
+        fill:#00c7a9
+    }
+}
+
+.button-delete {
+    svg {
+        width: 22px;
+        height: 26px;
+        fill: #EF3826;
+    }
+
+    :hover{
+        fill: #ff0404;
+    }
+}

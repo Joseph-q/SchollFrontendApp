@@ -1,0 +1,10 @@
+<div class="card" [class.active]="selected" (click)="onClick()">
+  <div class="data">
+    <h4>{{ title }}</h4>
+    <p>{{ description }}</p>
+    <h5>{{ numberStadistic }}</h5>
+  </div>
+  <div class="logo">
+    <ng-content></ng-content>
+  </div>
+</div>

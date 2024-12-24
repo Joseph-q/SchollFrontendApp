@@ -1,0 +1,13 @@
+.tag-button {
+    border: none;
+    background:none;
+    color: gray;
+    &:hover{
+        color: black;
+    }
+}
+
+.tag-date {
+    margin: 0 5px;
+    font-weight: 700;
+}

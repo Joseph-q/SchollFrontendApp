@@ -1,0 +1,16 @@
+<div [className]="scrollable ? 'container scroll': 'container'"
+    [style]="(height && scrollable) ? {height: height} : {}">
+    <div class="filter-header">
+        <div class="filter-list">
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+            <ng-content select="filter-list"></ng-content>
+        </div>
+        <div class="filter-details">
+            <ng-content select="filter-details"></ng-content>
+        </div>
+    </div>
+
+    <section class="filter-table">
+        <ng-content select="filter-table"></ng-content>
+    </section>
+</div>

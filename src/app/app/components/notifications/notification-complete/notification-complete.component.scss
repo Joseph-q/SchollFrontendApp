@@ -1,0 +1,59 @@
+.notification {
+    color: white;
+    display: flex;
+    background-color: #00B69B;
+    padding: 10px;
+    align-items: center; // Alinea verticalmente los elementos dentro del contenedor
+    border-radius: 5px 0 0 5px;
+    position: relative; // Necesario para usar `right`
+    right: -100%; // Inicialmente fuera de la pantalla
+    opacity: 0; // Transparente al inicio
+    animation: slide-in-right 0.5s ease forwards; // Animación al aparecer
+    cursor: pointer;
+
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        svg {
+            fill: #00B69B;
+            width: 30px;
+            height: 30px;
+           
+        }
+    }
+
+    .notification-message {
+        flex: 1;
+        height: 100%;
+
+        p {
+            font-weight: 800;
+        }
+    }
+
+    // Animaciones de hover y active
+    &:hover {
+        background-color: #00A18A; // Cambia el color de fondo al pasar el ratón
+    }
+
+    &:active {
+        transform: translateX(0) scale(0.98); // Reduce ligeramente el tamaño al hacer clic
+        transition: transform 0.1s ease;
+    }
+}
+
+// Keyframes para la animación de aparecer desde la derecha
+@keyframes slide-in-right {
+    from {
+        right: -100%; // Comienza fuera del viewport
+        opacity: 0; // Transparente al inicio
+    }
+
+    to {
+        right: 0; // Posición final, en su lugar
+        opacity: 1; // Completamente visible
+    }
+}

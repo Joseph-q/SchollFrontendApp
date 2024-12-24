@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="left-info">
+        <div class="svg-container">
+            <svg viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M75 84.375C98.291 84.375 117.188 65.4785 117.188 42.1875C117.188 18.8965 98.291 0 75 0C51.709 0 32.8125 18.8965 32.8125 42.1875C32.8125 65.4785 51.709 84.375 75 84.375ZM112.5 93.75H96.3574C89.8535 96.7383 82.6172 98.4375 75 98.4375C67.3828 98.4375 60.1758 96.7383 53.6426 93.75H37.5C16.7871 93.75 0 110.537 0 131.25V135.938C0 143.701 6.29883 150 14.0625 150H135.938C143.701 150 150 143.701 150 135.938V131.25C150 110.537 133.213 93.75 112.5 93.75Z" />
+            </svg>
+
+        </div>
+
+
+    </div>
+
+    @if((studentInfo|async); as student){
+    <div class="rigth-info">
+        <div class="main-info">
+            <h3>{{student.name + " " + student.lastname}}</h3>
+
+            <div class="contact-info">
+                <p class="info-number">{{student.number }}</p>
+                <p class="info-email">{{student.email}}</p>
+            </div>
+        </div>
+
+        <p class="info-credential"><b>Credencial version:</b> Version 1</p>
+
+        <div class="actions-buttons">
+            <div class="config-buttons">
+                <button (click)="OnUpdate()" class="button-update">Actualizar</button>
+                <button backgroundColor="#EF3826" (click)="OnDelete()"
+                    class="button-delete">Eliminar</button>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
+
+
+<div class="rigth-info">

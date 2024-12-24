@@ -1,0 +1,37 @@
+<div class="container">
+    <h2>Nuevo Curso</h2>
+    <div class="container-form">
+    
+        <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()" class="form">
+            <!-- Input para el curso -->
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Nombre del Curso</mat-label>
+                <input matInput formControlName="name" type="text">
+    
+                @if (cursoForm.get('name')?.invalid && cursoForm.get('name')?.touched) {
+                <mat-error>
+                    El nombre del curso es obligatorio.
+                </mat-error>
+                }
+    
+            </mat-form-field>
+    
+    
+            <mat-form-field appearance="outline" class="form-group">
+                <mat-label>Descripcion</mat-label>
+                <input matInput formControlName="description" type="text">
+    
+            </mat-form-field>
+    
+    
+    
+            <div class="actions">
+                <!-- Botón para enviar el formulario -->
+                <button mat-raised-button color="primary" type="submit" [disabled]="cursoForm.invalid">
+                    Guardar Curso
+                </button>
+            </div>
+    
+        </form>
+    </div>
+</div>

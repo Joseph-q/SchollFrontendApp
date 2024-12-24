@@ -1,0 +1,45 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  height: calc(90vh - 40px);
+}
+
+.filter-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.filter-item.center {
+  align-items: center;
+}
+
+.course-selected {
+  width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+}
+
+.button-select {
+  display: flex;
+  border: none;
+  background: none;
+  color: #555;
+  justify-content: start;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+
+  &:hover {
+    filter: brightness(.2);
+  }
+}

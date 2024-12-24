@@ -1,0 +1,55 @@
+
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    border: none;
+    background: none;
+    padding: 5px;
+}
+
+
+.actions{
+    display: flex;
+    justify-content: space-evenly;
+
+
+    .update-button{
+        cursor: pointer;
+        svg{
+            width: 25px;
+            height: 26px;
+            fill: #00B69B;
+
+            &:hover{
+                fill: #2eb4a0;
+
+            }
+            &:active{
+                fill: #00B69B;
+
+            }
+        }
+    }
+
+ 
+}
+
+.action{
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+
+.send-button{
+    color: white;
+    background-color: #6226EF;
+    font-weight: 900;
+    cursor: pointer;
+    &:hover{
+        background-color: #6c30f7;
+    }
+    &:active{
+        background-color: #6226EF;
+    }
+}

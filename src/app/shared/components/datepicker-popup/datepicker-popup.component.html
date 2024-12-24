@@ -1,0 +1,12 @@
+<!-- Botón de disparo del menú con matMenuTriggerRestoreFocus -->
+<button  [matMenuTriggerFor]="date">
+    {{selected() | date: 'dd/MM/yyyy'}}
+</button>
+
+<!-- Menú con calendario -->
+<mat-menu #date="matMenu"  >
+    <mat-card class="calendar-card" (click)="$event.stopPropagation()">
+        <mat-calendar [(selected)]="selected" (_userSelection)="OnDateSelected()" >
+        </mat-calendar>
+    </mat-card>
+</mat-menu>
