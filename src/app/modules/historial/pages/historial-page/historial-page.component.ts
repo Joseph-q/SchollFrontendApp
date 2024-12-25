@@ -23,9 +23,7 @@ import { PickerRangeTextComponent } from "@shared/components/picker-range-text/p
 })
 export class HistorialPageComponent {
   protected rangeDate = signal<RangeDate>({
-    startDate: new Date(),
-    endDate: new Date(new Date().setDate(new Date().getDate() + 10)),
+    startDate: new Date(new Date().setDate(1)), // Primer día del mes actual
+    endDate: new Date(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)), // Último día del mes actual
   });
-
-  
 }

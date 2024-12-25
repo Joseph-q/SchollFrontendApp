@@ -3,7 +3,7 @@
         matSortDisableClear matSortDirection="desc">
         <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> FECHA </th>
-            <td mat-cell *matCellDef="let element"> {{(element.date | date: 'dd MMMM')+" de " + (element.date |
+            <td mat-cell *matCellDef="let element"> {{(element.date | date: 'dd MMMM' :'UTC')+" de " + (element.date |
                 date: 'yyyy')}} </td>
         </ng-container>
 

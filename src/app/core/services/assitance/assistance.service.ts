@@ -98,7 +98,7 @@ export class AssistanceService {
       .pipe(map((v) => v.data));
   }
 
-  getAssistanceSumary(
+  getAssistanceSummary(
     queryAssisSumary?: QueryAssistanceSumary
   ): Observable<AssistanceSummaryResponse> {
     if (!queryAssisSumary) {

@@ -35,6 +35,7 @@ export class HistorialAssistancesTableComponent
     | Observable<AssistanceSummaryResponse> = this.assistanceHistorial$;
 
   data: AssistanceSummary[] = [];
+
   @Input() set range(rangeDate: RangeDate) {
     if (
       this.rangeDate.startDate === rangeDate.startDate &&
@@ -44,7 +45,7 @@ export class HistorialAssistancesTableComponent
     }
     this.rangeDate = rangeDate;
     this.assistanceHistorial$ = this.assistanceService
-      .getAssistanceSumary({
+      .getAssistanceSummary({
         rangeDate: this.rangeDate,
       })
       .pipe(tap((v) => (this.data = v.data)));
@@ -60,24 +61,23 @@ export class HistorialAssistancesTableComponent
     }
     if (!this.assistanceHistorial$) {
       this.assistanceHistorial$ = this.assistanceService
-        .getAssistanceSumary({
+        .getAssistanceSummary({
           rangeDate: this.rangeDate,
         })
         .pipe(tap((v) => (this.data = v.data)));
     }
-    return;
   }
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe((v) => {
-      this.displayedColumns.map((colum) => {
-        if (v.active + v.direction == `${colum}desc`) {
+      this.displayedColumns.forEach((column) => {
+        if (v.active + v.direction === `${column}desc`) {
           this.assistanceHistorial$ = of({
             data: [...this.data.reverse()],
           });
         }
 
-        if (v.active + v.direction == `${colum}asc`) {
+        if (v.active + v.direction === `${column}asc`) {
           this.assistanceHistorial$ = of({
             data: [...this.data.reverse()],
           });
