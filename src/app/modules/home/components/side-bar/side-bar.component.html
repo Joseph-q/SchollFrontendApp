@@ -1,7 +1,6 @@
 <div class="nav-container">
 
-    <mat-nav-list class="nav-items">
-
+    <mat-nav-list class="nav-items top">
         <a mat-list-item class="item-nav" routerLink='/historial' routerLinkActive="active">
             <mat-icon matListItemIcon>history</mat-icon>
             <span matListItemTitle>
@@ -23,29 +22,23 @@
                 Corte de caja
             </span>
         </a> -->
-
-
-
     </mat-nav-list>
     <mat-divider></mat-divider>
+    <div class="nav-header">
+        <button mat-raised-button extended class="add-button" (click)="showModal.emit()">
+            <mat-icon>add</mat-icon>
+            <span></span>
+            Agregar Curso</button>
+    </div>
 
-    <section class="courses-section">
-        <div class="nav-header">
-            <button mat-raised-button extended class="add-button" (click)="showModal.emit()">
-                <mat-icon>add</mat-icon>
-                <span></span>
-                Agregar Curso</button>
-        </div>
-        <mat-nav-list class="nav-items">
-            @for (course of (courses$ |async); track $index) {
-            <a mat-list-item class="item-nav" routerLinkActive="active course" [routerLink]="onClickRoute(course.id)">
-                <span matListItemTitle>
-                    {{course.name}}
-                </span>
-            </a>
-            }
-        </mat-nav-list>
-    </section>
+    <mat-nav-list class="nav-items bottom">
+        @for (course of (courses$ |async); track $index) {
+        <a mat-list-item class="item-nav" routerLinkActive="active course" [routerLink]="onClickRoute(course.id)">
+            <span matListItemTitle>
+                {{course.name}}
+            </span>
+        </a>
+        }
+    </mat-nav-list>
 
 </div>
-

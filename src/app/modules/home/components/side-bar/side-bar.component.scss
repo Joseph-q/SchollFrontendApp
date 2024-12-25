@@ -1,7 +1,9 @@
+
 .nav-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 90vh;
 }
 
 .nav-header {
@@ -10,7 +12,15 @@
     padding: 20px 0;
 }
 
+
+.nav-items.bottom{
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+
 .nav-items {
+
     .item-nav {
         border-radius: 0;
         &.active{
