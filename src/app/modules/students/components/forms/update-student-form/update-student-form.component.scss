@@ -1,9 +1,8 @@
 .form-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: 24px;
     align-items: center;
-
+    gap: 10px;
     mat-form-field {
         width: 100%
     }

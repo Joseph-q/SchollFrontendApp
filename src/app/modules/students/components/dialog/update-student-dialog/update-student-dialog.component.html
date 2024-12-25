@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Actualizar Alumno</h2>
+<mat-dialog-content>
+    <br>
+    <app-update-student-form [studentId]="studentId.toString()" (updated)="onNoClick()"></app-update-student-form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="onUpdate()" cdkFocusInitial>Actualizar Alumno</button>
+</mat-dialog-actions>

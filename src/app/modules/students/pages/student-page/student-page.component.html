@@ -27,23 +27,4 @@
     </app-filter-table>
 
     }
-
 </div>
-
-
-
-@if(activeModal === "update"){
-<app-modal (closeModal)="closeModal()">
-    <app-update-student-form [studentId]="studentId.toString()" (updated)="closeModal()"></app-update-student-form>
-</app-modal>
-}
-
-@if(activeModal === "add"){
-<app-modal (closeModal)="closeModal()">
-    <app-add-student-form (created)="closeModal()"></app-add-student-form>
-</app-modal>
-}
-
-@if (activeModal === "delete") {
-<app-warning-delete (cancel)="closeModal()" [studentId]="studentId.toString()"></app-warning-delete>
-}
