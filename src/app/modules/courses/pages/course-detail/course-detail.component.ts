@@ -56,8 +56,8 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
 
   //historial
   rangeDate: RangeDate = {
-    startDate: new Date(),
-    endDate: new Date(new Date().setDate(new Date().getDate() + 10)),
+    startDate: new Date(new Date().setDate(1)), // Primer día del mes actual
+    endDate: new Date(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0))
   };
 
   public listLinks: Link[] = [

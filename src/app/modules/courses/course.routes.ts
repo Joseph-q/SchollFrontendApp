@@ -10,7 +10,7 @@ export const COURSE_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'historial',
+        redirectTo: 'assistances',
         pathMatch: 'full',
       },
       {
