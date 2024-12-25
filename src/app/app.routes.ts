@@ -33,6 +33,14 @@ export const routes: Routes = [
             (m) => m.BALANCING_ROUTES
           ),
       },
+
+      {
+        path: '',
+        loadChildren: () =>
+          import('@students/student.routes').then(
+            (m) => m.STUDENT_ROUTES
+          ),
+      },
     ],
   },
 ];
