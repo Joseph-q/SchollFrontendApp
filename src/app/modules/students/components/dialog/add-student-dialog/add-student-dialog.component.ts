@@ -14,7 +14,6 @@ import { AddStudentFormComponent } from "../../forms/add-student-form/add-studen
   imports: [
     MatDialogContent,
     MatDialogActions,
-    MatDialogTitle,
     MatButtonModule,
     AddStudentFormComponent
 ],

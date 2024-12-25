@@ -16,8 +16,8 @@
 
   <mat-drawer-content>
     <div class="container-card">
-      <app-card-student [studentId]="studentId" (onUpdate)="ShowupdateForm=true"
-        (onDelete)="ShowDeleteForm=true"></app-card-student>
+      <app-card-student [studentId]="studentId" (onUpdate)="OnUpdateStudent()"
+        (onDelete)="OnDeleteStudent()"></app-card-student>
     </div>
 
     <div class="scrollable-content">

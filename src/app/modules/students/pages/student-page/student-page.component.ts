@@ -44,7 +44,6 @@ export class StudentPageComponent implements OnInit {
   public studentId: number = 0;
   readonly dialog = inject(MatDialog);
 
-  public activeModal: 'add' | 'update' | 'delete' | null = null;
 
   protected pageSize: number = 50;
   protected page: number = 1;
@@ -54,29 +53,19 @@ export class StudentPageComponent implements OnInit {
 
   OnClickUpdate(id: number) {
     this.dialog.open(UpdateStudentDialogComponent, {
-      maxWidth: '100%',
-      width: '66.666%',
       data: { studentId: id },
     });
   }
 
   OnClickDelete(id: number) {
     this.dialog.open(DeleteDialogComponent, {
-      width: '50%',
       data: { studentId: id },
-
     })
   }
 
   OnClickAdd() {
     this.dialog.open(AddStudentDialogComponent, {
-      maxWidth: '100%',
-      width: '66.666%',
     });
-  }
-
-  closeModal() {
-    this.activeModal = null;
   }
 
   constructor(private studentService: StudentsService) {}

@@ -4,7 +4,7 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,9 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { CardStudentComponent } from '../../components/student-detail/card-student/card-student.component';
-
-
-
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateStudentDialogComponent } from '@students/components/dialog/update-student-dialog/update-student-dialog.component';
+import { DeleteDialogComponent } from '@students/components/dialog/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-student-detail',
@@ -41,16 +41,28 @@ import { CardStudentComponent } from '../../components/student-detail/card-stude
 })
 export class StudentDetailComponent {
   studentId: string | null = null;
+  readonly dialog = inject(MatDialog);
 
   @Input() set id(studentId: string) {
     this.studentId = studentId;
   }
-  ShowupdateForm: boolean = false;
-  ShowDeleteForm: boolean = false;
+
   constructor(private router: Router) {}
 
+  OnUpdateStudent() {
+    this.dialog.open(UpdateStudentDialogComponent, {
+      data: {
+        studentId: this.studentId,
+      },
+    });
+  }
+
   OnDeleteStudent() {
-    this.router.navigate(['students']);
+    this.dialog.open(DeleteDialogComponent, {
+      data: {
+        studentId: this.studentId,
+      },
+    });
   }
 
   drawerExpanded: boolean = false;
