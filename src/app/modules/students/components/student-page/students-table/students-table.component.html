@@ -14,7 +14,7 @@
         @if (columShow.columRef == "created") {
         <ng-container matColumnDef="created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> {{columShow.columName}}</th>
-            <td mat-cell *matCellDef="let element"> {{(element.createdAt | date: 'dd MMMM')+" de " + (element.createdAt
+            <td mat-cell *matCellDef="let element"> {{(element.createdAt | date: 'dd MMMM' : 'UTC')+" de " + (element.createdAt
                 | date: 'yyyy')}} </td>
         </ng-container>
         }
