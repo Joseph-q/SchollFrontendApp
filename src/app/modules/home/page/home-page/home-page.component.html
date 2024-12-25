@@ -1,18 +1,9 @@
 <mat-sidenav-container>
-    <mat-sidenav #drawer mode="side" [opened]="true" class="side-nav">
-      <app-side-bar (showModal)="showModal=true"></app-side-bar>
-    </mat-sidenav>
-  
-    <mat-sidenav-content class="content">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
-  
-  @if (showModal) {
-  <app-modal (closeModal)="showModal=false">
-    <div class="course-form">
-      <app-add-course-form></app-add-course-form>
-    </div>
-  </app-modal>
-  }
+  <mat-sidenav #drawer mode="side" [opened]="true" class="side-nav">
+    <app-side-bar (showModal)="OpenDialog()"></app-side-bar>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
