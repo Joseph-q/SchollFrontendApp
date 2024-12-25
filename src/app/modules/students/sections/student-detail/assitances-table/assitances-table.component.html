@@ -1,48 +1,43 @@
-<div class="container">
-    <h2>Asistencias</h2>
-    <section>
-        <table mat-table [dataSource]="(studentAssistances$)" matSort matSortActive="date" matSortDisableClear
-            matSortDirection="desc">
+<table mat-table [dataSource]="(studentAssistances$)" matSort matSortActive="date" matSortDisableClear
+    matSortDirection="desc">
 
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> {{'fecha' | uppercase}}</th>
-                <td mat-cell *matCellDef="let element"> {{ (element.date | date: 'dd MMMM') + " de " +
-                    (element.date | date:"yyyy") }} </td>
-            </ng-container>
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> {{'fecha' | uppercase}}</th>
+        <td mat-cell *matCellDef="let element"> {{ (element.date | date: 'dd MMMM') + " de " +
+            (element.date | date:"yyyy") }} </td>
+    </ng-container>
 
-            <ng-container matColumnDef="entrance">
-                <th mat-header-cell *matHeaderCellDef> {{'entrada' | uppercase}}</th>
-                <td mat-cell *matCellDef="let element"> {{element.entrance}} </td>
-            </ng-container>
+    <ng-container matColumnDef="entrance">
+        <th mat-header-cell *matHeaderCellDef> {{'entrada' | uppercase}}</th>
+        <td mat-cell *matCellDef="let element"> {{element.entrance}} </td>
+    </ng-container>
 
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>
-                    <div class="actions">
-                        <button mat-button [matMenuTriggerFor]="menu" class="config"><config-svg></config-svg></button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item [matMenuTriggerFor]="courses">Course</button>
-                        </mat-menu>
-                    </div>
-                </th>
-                <mat-menu #courses="matMenu">
-                    @for (course of (coursesAssisted$|async); track $index) {
-                    @if (this.courseId && (course.id).toString() != this.courseId) {
-                    <button mat-menu-item (click)="onClickCourse(course.id)">
-                        {{course.name}}
-                    </button>
-                    }
-                    }
-
-
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+            <div class="actions">
+                <button mat-button [matMenuTriggerFor]="menu" class="config"><config-svg></config-svg></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="courses">Course</button>
                 </mat-menu>
+            </div>
+        </th>
+        <mat-menu #courses="matMenu">
+            @for (course of (coursesAssisted$|async); track $index) {
+            @if (this.courseId && (course.id).toString() != this.courseId) {
+            <button mat-menu-item (click)="onClickCourse(course.id)">
+                {{course.name}}
+            </button>
+            }
+            }
 
 
-                <td mat-cell *matCellDef="let element"></td>
-            </ng-container>
+        </mat-menu>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        </table>
-    </section>
-</div>
+        <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

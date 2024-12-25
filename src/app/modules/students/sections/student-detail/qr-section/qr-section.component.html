@@ -1,61 +1,50 @@
-<div class="container">
-    <h2>Credencial</h2>
+<section class="container-table">
+    <table mat-table [dataSource]="dataSource">
 
+        <!-- Columna de Creado -->
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Creado</th>
+            <td mat-cell *matCellDef="let row"> {{row.createdAt | date:'short'}}</td>
+        </ng-container>
 
+        <!-- Columna de Actualizado -->
+        <ng-container matColumnDef="updatedAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Actualizado</th>
+            <td mat-cell *matCellDef="let row"> {{row.updatedAt | date:'short'}}</td>
+        </ng-container>
 
-    <section class="container-table">
-        <table mat-table [dataSource]="dataSource">
+        <!-- Columna de Versión -->
+        <ng-container matColumnDef="version">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear style="text-align: center;">Versión
+            </th>
+            <td mat-cell *matCellDef="let row" style="text-align: center;"> {{row.version}}</td>
+        </ng-container>
 
-            <!-- Columna de Creado -->
-            <ng-container matColumnDef="createdAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Creado</th>
-                <td mat-cell *matCellDef="let row"> {{row.createdAt | date:'short'}}</td>
-            </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear style="text-align: center;">Actions
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <div class="actions">
+                    <button class="update-button">
+                        <svg viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.375366 22.3214V2.67857C0.375366 1.19922 1.57458 0 3.05394 0H22.6968C24.1761 0 25.3754 1.19922 25.3754 2.67857V22.3214C25.3754 23.8008 24.1761 25 22.6968 25H3.05394C1.57458 25 0.375366 23.8008 0.375366 22.3214ZM20.2144 14.4819L13.3489 7.61635C13.0874 7.35486 12.6634 7.35486 12.4018 7.61635L5.53636 14.4819C5.11448 14.9037 5.41326 15.625 6.00985 15.625H19.7408C20.3374 15.625 20.6362 14.9037 20.2144 14.4819Z" />
+                        </svg>
+                    </button>
+                </div>
 
-            <!-- Columna de Actualizado -->
-            <ng-container matColumnDef="updatedAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Actualizado</th>
-                <td mat-cell *matCellDef="let row"> {{row.updatedAt | date:'short'}}</td>
-            </ng-container>
+            </td>
+        </ng-container>
 
-            <!-- Columna de Versión -->
-            <ng-container matColumnDef="version">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear style="text-align: center;">Versión
-                </th>
-                <td mat-cell *matCellDef="let row" style="text-align: center;"> {{row.version}}</td>
-            </ng-container>
+        <!-- Filas de la tabla -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</section>
 
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear style="text-align: center;">Actions
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    <div class="actions">
-                        <button class="update-button">
-                            <svg viewBox="0 0 26 25" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M0.375366 22.3214V2.67857C0.375366 1.19922 1.57458 0 3.05394 0H22.6968C24.1761 0 25.3754 1.19922 25.3754 2.67857V22.3214C25.3754 23.8008 24.1761 25 22.6968 25H3.05394C1.57458 25 0.375366 23.8008 0.375366 22.3214ZM20.2144 14.4819L13.3489 7.61635C13.0874 7.35486 12.6634 7.35486 12.4018 7.61635L5.53636 14.4819C5.11448 14.9037 5.41326 15.625 6.00985 15.625H19.7408C20.3374 15.625 20.6362 14.9037 20.2144 14.4819Z"
-                                     />
-                            </svg>
-                        </button>
-                    </div>
-
-                </td>
-            </ng-container>
-
-            <!-- Filas de la tabla -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </section>
-
-    <div class="action">
-        <button class="send-button">
-            <mat-icon>qr_code</mat-icon>
-            Enviar Qr
-        </button>
-    </div>
-
-
-
+<div class="action">
+    <button class="send-button">
+        <mat-icon>qr_code</mat-icon>
+        Enviar Qr
+    </button>
 </div>

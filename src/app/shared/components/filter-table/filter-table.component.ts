@@ -10,5 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class FilterTableComponent {
   @Input({ transform: booleanAttribute }) scrollable: boolean = false;
+  @Input({ transform: booleanAttribute }) hideFilter = false;
   @Input({}) height: string = '10vh';
 }

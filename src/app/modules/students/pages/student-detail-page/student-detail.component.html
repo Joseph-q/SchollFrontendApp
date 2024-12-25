@@ -1,33 +1,21 @@
-<mat-drawer-container class="drawer-container">
-  <mat-drawer #drawer class="side-nav" mode="side" [opened]="true" [style.width]="drawerExpanded ? '240px' : '80px'"
-    position="end">
-    <nav>
-      <a routerLink="assistances" routerLinkActive="active-link" class="nav-link">
-        <mat-icon>event</mat-icon>
-      </a>
-      <a routerLink="qr-code" routerLinkActive="active-link" class="nav-link">
-        <mat-icon>qr_code</mat-icon>
-      </a>
-      <!-- <a routerLink="courses"  routerLinkActive="active-link"  class="nav-link">
-        <mat-icon>school</mat-icon>
-      </a> -->
-    </nav>
-  </mat-drawer>
+<div class="container">
+  <div class="container-card">
+    <app-card-student [studentId]="studentId" (onUpdate)="OnUpdateStudent()"
+      (onDelete)="OnDeleteStudent()"></app-card-student>
+  </div>
 
-  <mat-drawer-content>
-    <div class="container-card">
-      <app-card-student [studentId]="studentId" (onUpdate)="OnUpdateStudent()"
-        (onDelete)="OnDeleteStudent()"></app-card-student>
-    </div>
+  <app-filter-table scrollable hideFilter class="container-table">
+    <filter-list>
+      <mat-button-toggle-group hideSingleSelectionIndicator class="selection-toggle">
+        <mat-button-toggle routerLink="assistances" routerLinkActive="active">Asistencias</mat-button-toggle>
+        <mat-button-toggle routerLink="qr-code" routerLinkActive="active">Qr Code</mat-button-toggle>
+      </mat-button-toggle-group>
 
-    <div class="scrollable-content">
+    </filter-list>
+
+    <filter-table>
       <router-outlet></router-outlet>
-    </div>
+    </filter-table>
 
-  </mat-drawer-content>
-</mat-drawer-container>
-
-
-
-
-
+  </app-filter-table>
+</div>

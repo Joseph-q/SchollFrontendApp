@@ -4,50 +4,51 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  Input,
+} from '@angular/core';
 
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-
-import { CardStudentComponent } from '../../components/student-detail/card-student/card-student.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateStudentDialogComponent } from '@students/components/dialog/update-student-dialog/update-student-dialog.component';
+import { CardStudentComponent } from '@students/components/student-detail/card-student/card-student.component';
 import { DeleteDialogComponent } from '@students/components/dialog/delete-dialog/delete-dialog.component';
 
+import { FilterTableComponent } from '@shared/components/filter-table/filter-table.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-student-detail',
   standalone: true,
   imports: [
-    // Angular Material Modules
-    MatIconModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatToolbarModule,
+    //Material
+    MatButtonToggleModule,
     // Router Modules
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-
     // Custom Components
     CardStudentComponent,
+    //Shared
+    FilterTableComponent,
   ],
 
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class StudentDetailComponent {
-  studentId: string | null = null;
+  protected studentId: string | null = null;
+  protected drawerExpanded: boolean = false;
   readonly dialog = inject(MatDialog);
 
   @Input() set id(studentId: string) {
     this.studentId = studentId;
   }
 
-  constructor(private router: Router) {}
+  constructor(private location: Location) {}
 
   OnUpdateStudent() {
     this.dialog.open(UpdateStudentDialogComponent, {
@@ -63,15 +64,12 @@ export class StudentDetailComponent {
         studentId: this.studentId,
       },
     });
-  }
 
-  drawerExpanded: boolean = false;
+    this.location.back()
+  }
 
   toggleDrawer() {
     this.drawerExpanded = !this.drawerExpanded;
   }
 
-  isLinkActive(route: string): boolean {
-    return this.router.url.includes(route);
-  }
 }

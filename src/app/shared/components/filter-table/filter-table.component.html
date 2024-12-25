@@ -2,7 +2,9 @@
     [style]="(height && scrollable) ? {height: height} : {}">
     <div class="filter-header">
         <div class="filter-list">
-            <mat-icon class="filter-icon">filter_list</mat-icon>
+            @if (!hideFilter) {
+                <mat-icon class="filter-icon">filter_list</mat-icon>
+            }
             <ng-content select="filter-list"></ng-content>
         </div>
         <div class="filter-details">

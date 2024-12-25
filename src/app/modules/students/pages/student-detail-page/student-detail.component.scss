@@ -1,62 +1,26 @@
-.drawer-container {
+.container {
     height: 90vh;
-
-    .side-nav {
-        border: none;
-        border-radius: 0;
-    }
-
-    nav {
-        .nav-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            align-content: space-between;
-            margin-bottom: 40px;
-            color: gray;
-            text-decoration: none;
-            padding: 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-
-            /* Transición suave */
-            &.select {
-                background-color: #4880FF;
-                color: white;
-            }
-
-            &:hover {
-                background-color: #5789ff;
-                cursor: pointer;
-                color: white;
-            }
-        }
-        .active-link{
-            background-color: #4880FF;
-            color: white;
-        }
-    }
-
-}
-
-.mat-icon {
-    font-size: 24px;
-    /* Tamaño del icono */
-}
-
-
-.mat-drawer-content {
     display: flex;
     flex-direction: column;
-    overflow: unset;
-    .container-card{
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-    }
-    .scrollable-content{
-        margin-top: 20px;
-        flex: 1;
-        overflow-y: auto;
-    }
+    gap: 20px;
 }
 
+.container-card {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.container-table {
+    flex: 2;
+}
+
+.selection-toggle {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); 
+}
+
+.active{
+    background-color: rgba(0, 0, 255, 0.1);
+}
