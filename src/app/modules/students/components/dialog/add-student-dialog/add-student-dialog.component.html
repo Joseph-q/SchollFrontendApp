@@ -1,0 +1,7 @@
+<mat-dialog-content>
+    <app-add-student-form (created)="onNoClick()"></app-add-student-form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="onUpdate()" cdkFocusInitial>Crear Alumno</button>
+</mat-dialog-actions>

@@ -1,13 +1,16 @@
 .form-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: 24px;
+    gap: 10px;
     align-items: center;
 
     mat-form-field {
         width: 100%
     }
 
+}
+.error-form{
+    height: 30px;
 }
 
 .name {

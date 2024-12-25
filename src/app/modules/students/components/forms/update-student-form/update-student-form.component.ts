@@ -23,7 +23,6 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { CoursesResponse } from '@core/services/courses/interfaces/response/courses.response.interface';
 import { CourseService } from '@core/services/courses/courses.service';
 import { StudentsService } from '@core/services/student/students.service';
-import { NotificationService } from '@core/services/notification/notification.service';
 
 import { UpdateStudentForm } from './class/UpdateStudentForm.class';
 
@@ -63,14 +62,13 @@ export class UpdateStudentFormComponent implements OnInit, OnDestroy {
   protected formError: WritableSignal<string | null> = signal(null);
 
   private _student = new UpdateStudentForm();
-  private unsubscribe = new Subject<void>();
+  private unsubscribe$ = new Subject<void>();
 
   public updateStudentForm = this._student.Form;
 
   constructor(
     private courseService: CourseService,
     private studentService: StudentsService,
-    private notificationService: NotificationService
   ) {}
 
   public OnUpdated() {
@@ -98,13 +96,10 @@ export class UpdateStudentFormComponent implements OnInit, OnDestroy {
 
     this.studentService
       .updateStudent(this.studentId, this._student.StudentToUpdate)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         complete: () => {
-          this.notificationService.sendCompleteMessage(
-            'Estudiante Actualizado'
-          );
-          this.unsubscribe.next();
+          this.unsubscribe$.next();
           this.OnUpdated();
         },
       });
@@ -116,14 +111,14 @@ export class UpdateStudentFormComponent implements OnInit, OnDestroy {
 
     this.studentService
       .getStudent(this.studentId, 'all')
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((v) => {
         this._student.Form = v;
       });
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

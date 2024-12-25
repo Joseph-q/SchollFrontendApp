@@ -1,83 +1,81 @@
-    @if ( createStudentForm.errors?.['atLeastOneRequired']) {
-    <mat-error>{{formError()}}</mat-error>
-    }
-    <div class="container-form">
-        <form [formGroup]="createStudentForm" (submit)="OnSubmit()">
-            <div class="form-grid">
-                <mat-form-field appearance="outline" class="name">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="name" required />
-                    @if (createStudentForm.get("name")?.invalid) {
-                    <mat-error>{{nameError()}}</mat-error>
-                    }
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="lastname">
-                    <mat-label>Apellido</mat-label>
-                    <input matInput formControlName="lastname" required />
-                    @if (createStudentForm.get("lastname")?.invalid) {
-                    <mat-error>{{lastnameError()}}</mat-error>
-                    }
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="email">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="pat@example.com" formControlName="email"  />
-                    @if (createStudentForm.get("email")?.invalid) {
-                    <mat-error>{{emailError()}}</mat-error>
-                    }
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="course">
-                    <mat-label>Curso</mat-label>
-                    <mat-select formControlName="course" required>
-                        <mat-option [value]="0">--</mat-option>
-                        @for (course of (courses$|async)?.courses; track $index) {
-                        <mat-option [value]="course.id">
-                            {{ course.name }}
-                        </mat-option>
-                        }
-                    </mat-select>
-                    @if (createStudentForm.get("course")?.invalid) {
-                    <mat-error>{{courseError()}}</mat-error>
-                    }
-                </mat-form-field>
-    
-
-
-                <mat-form-field appearance="outline" class="phone">
-                    <mat-label>Numbero de telefono</mat-label>
-                    <app-phone-input formControlName="phone" ></app-phone-input>
-                    @if (createStudentForm.get("phone")?.invalid) {
-                    <mat-error>{{numberError()}}</mat-error>
-                    }
-                </mat-form-field>
-
-                <div></div>
-                <mat-form-field appearance="outline" class="birthday">
-                    <mat-label>Fecha nacimiento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="birthday">
-                    <mat-hint>DD/MM/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-
-
-
-                <mat-form-field appearance="outline" class="gender">
-                    <mat-label>Genero</mat-label>
-                    <mat-select formControlName="gender">
-                        <mat-option value="">--</mat-option>
-                        
-                        <mat-option value="Male">Masculino</mat-option>
-                        <mat-option value="Female">Femenino</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div class="button-action">
-                <button type="submit" class="button-add">Agregar</button>
-            </div>
-        </form>
+<div class="container-form">
+    <div class="error-form">
+        @if ( createStudentForm.errors?.['atLeastOneRequired']) {
+        <mat-error>{{formError()}}</mat-error>
+        }
     </div>
+    <form [formGroup]="createStudentForm">
+        <div class="form-grid">
+            <mat-form-field appearance="outline" class="name">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" required />
+                @if (createStudentForm.get("name")?.invalid) {
+                <mat-error>{{nameError()}}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="lastname">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="lastname" required />
+                @if (createStudentForm.get("lastname")?.invalid) {
+                <mat-error>{{lastnameError()}}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="email">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="pat@example.com" formControlName="email" />
+                @if (createStudentForm.get("email")?.invalid) {
+                <mat-error>{{emailError()}}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="course">
+                <mat-label>Curso</mat-label>
+                <mat-select formControlName="course" required>
+                    <mat-option [value]="0">--</mat-option>
+                    @for (course of (courses$|async)?.courses; track $index) {
+                    <mat-option [value]="course.id">
+                        {{ course.name }}
+                    </mat-option>
+                    }
+                </mat-select>
+                @if (createStudentForm.get("course")?.invalid) {
+                <mat-error>{{courseError()}}</mat-error>
+                }
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="outline" class="phone">
+                <mat-label>Numbero de telefono</mat-label>
+                <app-phone-input formControlName="phone"></app-phone-input>
+                @if (createStudentForm.get("phone")?.invalid) {
+                <mat-error>{{numberError()}}</mat-error>
+                }
+            </mat-form-field>
+
+            <div></div>
+            <mat-form-field appearance="outline" class="birthday">
+                <mat-label>Fecha nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthday">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+
+
+            <mat-form-field appearance="outline" class="gender">
+                <mat-label>Genero</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option value="">--</mat-option>
+
+                    <mat-option value="Male">Masculino</mat-option>
+                    <mat-option value="Female">Femenino</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+</div>

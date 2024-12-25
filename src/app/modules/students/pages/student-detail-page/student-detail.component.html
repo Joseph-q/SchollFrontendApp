@@ -31,13 +31,3 @@
 
 
 
-@if(ShowDeleteForm){
-<app-warning-delete (cancel)="ShowDeleteForm=false" [studentId]="studentId"
-  (accept)="OnDeleteStudent()"></app-warning-delete>
-}
-
-@if(ShowupdateForm){
-<app-modal (closeModal)="ShowupdateForm=false">
-  <app-update-student-form [studentId]="studentId"></app-update-student-form>
-</app-modal>
-}

@@ -19,6 +19,8 @@ import { CardStatisticsComponent } from '@shared/components/card-statistics/card
 import { FilterTableComponent } from '@shared/components/filter-table/filter-table.component';
 import { UpdateStudentDialogComponent } from '../../components/dialog/update-student-dialog/update-student-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AddStudentDialogComponent } from '@students/components/dialog/add-student-dialog/add-student-dialog.component';
+import { DeleteDialogComponent } from '@students/components/dialog/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-student-page',
@@ -52,19 +54,25 @@ export class StudentPageComponent implements OnInit {
 
   OnClickUpdate(id: number) {
     this.dialog.open(UpdateStudentDialogComponent, {
-      maxWidth:"100%",
-      width:"66.666%",
-      data:{studentId:id}
+      maxWidth: '100%',
+      width: '66.666%',
+      data: { studentId: id },
     });
   }
 
   OnClickDelete(id: number) {
-    this.studentId = id;
-    this.activeModal = 'delete';
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: { studentId: id },
+
+    })
   }
 
   OnClickAdd() {
-    this.activeModal = 'add';
+    this.dialog.open(AddStudentDialogComponent, {
+      maxWidth: '100%',
+      width: '66.666%',
+    });
   }
 
   closeModal() {

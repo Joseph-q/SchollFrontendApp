@@ -12,11 +12,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { UpdateStudentFormComponent } from '../../components/forms/update-student-form/update-student-form.component';
-import { WarningDeleteComponent } from '../../components/forms/warning-delete/warning-delete.component';
 import { CardStudentComponent } from '../../components/student-detail/card-student/card-student.component';
 
-import { ModalComponent } from '@shared/components/modal/modal.component';
 
 
 
@@ -37,10 +34,6 @@ import { ModalComponent } from '@shared/components/modal/modal.component';
 
     // Custom Components
     CardStudentComponent,
-    UpdateStudentFormComponent,
-    WarningDeleteComponent,
-    //Shared Components
-    ModalComponent,
   ],
 
   templateUrl: './student-detail.component.html',

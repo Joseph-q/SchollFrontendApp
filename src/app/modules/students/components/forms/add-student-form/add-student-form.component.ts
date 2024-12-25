@@ -19,7 +19,6 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { StudentsService } from '@core/services/student/students.service';
 import { CourseService } from '@core/services/courses/courses.service';
-import { NotificationService } from '@core/services/notification/notification.service';
 import { CoursesResponse } from '@core/services/courses/interfaces/response/courses.response.interface';
 
 import { PhoneInputComponent } from '@shared/modules/students/components/phone-input/phone-input.component';
@@ -46,12 +45,12 @@ import { CreateStudentForm } from './class/CreateStudent.class';
 })
 export class AddStudentFormComponent {
   @Output() created = new EventEmitter<void>();
-  formError: WritableSignal<string | null> = signal(null);
-  nameError: WritableSignal<string | null> = signal(null);
-  lastnameError: WritableSignal<string | null> = signal(null);
-  emailError: WritableSignal<string | null> = signal(null);
-  numberError: WritableSignal<string | null> = signal(null);
-  courseError: WritableSignal<string | null> = signal(null);
+  protected formError: WritableSignal<string | null> = signal(null);
+  protected nameError: WritableSignal<string | null> = signal(null);
+  protected lastnameError: WritableSignal<string | null> = signal(null);
+  protected emailError: WritableSignal<string | null> = signal(null);
+  protected numberError: WritableSignal<string | null> = signal(null);
+  protected courseError: WritableSignal<string | null> = signal(null);
 
   unsubscribe$ = new Subject<void>();
   courses$: Observable<CoursesResponse>;
@@ -62,7 +61,6 @@ export class AddStudentFormComponent {
   constructor(
     private studentService: StudentsService,
     private courseService: CourseService,
-    private notificationService: NotificationService
   ) {
     this.courses$ = this.courseService.getCourses();
   }
@@ -90,9 +88,6 @@ export class AddStudentFormComponent {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         complete:()=>{
-          this.notificationService.sendCompleteMessage(
-            'Estudiante Creado'
-          );
           this.unsubscribe$.next();
         }
       });

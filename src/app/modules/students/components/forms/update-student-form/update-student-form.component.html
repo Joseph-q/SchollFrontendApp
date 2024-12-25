@@ -1,7 +1,11 @@
 <form [formGroup]="updateStudentForm" (submit)="OnSubmit()">
-    @if ( updateStudentForm.errors?.['atLeastOneRequired']) {
-        <mat-error>{{formError()}}</mat-error>
-        }
+
+    <div class="error-form">
+        @if ( updateStudentForm.errors?.['atLeastOneRequired']) {
+            <mat-error>{{formError()}}</mat-error>
+            }
+    </div>
+   
     <div class="form-grid">
         <mat-form-field appearance="outline" class="name">
             <mat-label>Nombre</mat-label>
