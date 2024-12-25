@@ -1,11 +1,21 @@
-import { AsyncPipe } from '@angular/common';
-import { Observable, map } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AsyncPipe, Location } from '@angular/common';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 import { StudentResponse } from '@core/services/student/interfaces/response/StudentResponse.interface';
 import { StudentsService } from '@core/services/student/students.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateStudentDialogComponent } from '@students/components/dialog/update-student-dialog/update-student-dialog.component';
+import { DeleteDialogComponent } from '@students/components/dialog/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-card-student',
@@ -14,11 +24,10 @@ import { NotificationService } from '@core/services/notification/notification.se
   templateUrl: './card-student.component.html',
   styleUrl: './card-student.component.scss',
 })
-export class CardStudentComponent implements OnInit {
+export class CardStudentComponent implements OnInit, OnDestroy {
   @Input({ required: true }) studentId: string | null = null;
-
-  @Output() onUpdate: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onDelete: EventEmitter<void> = new EventEmitter<void>();
+  readonly dialog = inject(MatDialog);
+  private unsubscribe$ = new Subject<void>();
 
   studentInfo!: Observable<StudentResponse | null>;
 
@@ -30,6 +39,7 @@ export class CardStudentComponent implements OnInit {
   ngOnInit(): void {
     if (this.studentId)
       this.studentInfo = this.studentService.getStudent(this.studentId).pipe(
+        takeUntil(this.unsubscribe$),
         map((value) => {
           if (!value) {
             this.notificationService.sendErrorMessage(
@@ -43,14 +53,27 @@ export class CardStudentComponent implements OnInit {
   }
 
   OnUpdate() {
-    this.onUpdate.emit();
+    this.dialog.open(UpdateStudentDialogComponent, {
+      data: {
+        studentId: this.studentId,
+      },
+    });
   }
 
   OnDelete() {
-    this.onDelete.emit();
+    this.dialog
+      .open(DeleteDialogComponent, {
+        data: {
+          studentId: this.studentId,
+        },
+      })
+      .componentInstance.unsubscribe$.pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.unsubscribe$.next();
+      });
   }
 
-  onWhatsApp(contactNumber: number) {}
-
-  onEmail(email: string) {}
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+  }
 }

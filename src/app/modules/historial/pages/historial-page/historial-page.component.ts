@@ -7,6 +7,7 @@ import { HistorialAssistancesTableComponent } from "src/app/modules/historial/co
 import { CardStatisticsComponent } from "@shared/components/card-statistics/card-statistics.component";
 import { FilterTableComponent } from "@shared/components/filter-table/filter-table.component";
 import { PickerRangeTextComponent } from "@shared/components/picker-range-text/picker-range-text.component";
+import { HistorialSvg } from "../../svg/historial-svg.component";
 
 @Component({
   selector: 'app-historial-page',
@@ -16,7 +17,8 @@ import { PickerRangeTextComponent } from "@shared/components/picker-range-text/p
     FilterTableComponent,
     PickerRangeTextComponent,
     CardStatisticsComponent,
-  ],
+    HistorialSvg
+],
   templateUrl: './historial-page.component.html',
   styleUrl: './historial-page.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

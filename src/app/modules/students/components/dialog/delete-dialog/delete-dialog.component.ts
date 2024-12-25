@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -8,6 +9,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { StudentsService } from '@core/services/student/students.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -18,7 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
     MatDialogContent,
     MatDialogActions,
     MatButtonModule,
-    MatDialogTitle
+    MatDialogTitle,
   ],
   templateUrl: './delete-dialog.component.html',
   styleUrl: './delete-dialog.component.scss',
@@ -30,6 +32,8 @@ export class DeleteDialogComponent implements OnDestroy {
   readonly data = inject<{ studentId: number }>(MAT_DIALOG_DATA);
   readonly studentId = this.data.studentId;
 
+  constructor(private router: Router) {}
+
   onNoClick() {
     this.dialogRef.close();
   }
@@ -39,7 +43,13 @@ export class DeleteDialogComponent implements OnDestroy {
     this.studentService
       .deleteStudent(this.studentId.toString())
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({ complete: () => this.dialogRef.close() });
+      .subscribe({
+        complete: () => {
+          this.unsubscribe$.next(),
+          this.dialogRef.close(),
+          this.router.navigate(["students"])
+        },
+      });
   }
 
   ngOnDestroy(): void {
