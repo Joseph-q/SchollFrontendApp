@@ -1,31 +1,34 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   inject,
   OnDestroy,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   debounceTime,
   distinctUntilChanged,
+  filter,
   map,
   startWith,
   switchMap,
   takeUntil,
+  tap,
 } from 'rxjs/operators';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { StudentsService } from '../../../core/services/student/students.service';
 import { SearchStudentResponse } from '../../../core/services/student/interfaces/response/SearchStudent.interface';
 
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { SearchSvg } from '../svg/search.svg';
 import { QuerySearchStudent } from '@core/services/student/interfaces/request/SearchStudentQuery.interface';
-import { of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-search-bar',
@@ -34,7 +37,6 @@ import { of, Subject } from 'rxjs';
     //Material
     MatIconModule,
     MatAutocompleteModule,
-    MatInputModule,
     MatFormFieldModule,
     MatMenuModule,
     //Angular
@@ -56,6 +58,8 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
   protected filteredOptions: SearchStudentResponse | null = null;
   protected iconOptions = IconOptions;
 
+  @ViewChild('searchInputElement') searchInputElement!: ElementRef<HTMLInputElement>;
+
   private SearchParms: QuerySearchStudent = {
     limit: 5,
     searchValues: {},
@@ -66,6 +70,18 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
 
   onChangeIcon(iconName: IconOptions) {
     this.currentIcon.set(iconName);
+    if(iconName == IconOptions.Email){
+      this.SearchParms= {...this.SearchParms,searchValues:{email:this.searchInput.value}}
+    }else if(iconName == IconOptions.Phone){
+      this.SearchParms= {...this.SearchParms,searchValues:{number:this.searchInput.value}}
+    }else{
+      this.SearchParms= {...this.SearchParms,searchValues:{name:this.searchInput.value}}
+    }
+
+    this.forceReload().subscribe((v) => {
+      this.filteredOptions = v;
+      this.searchInputElement.nativeElement.focus();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -73,29 +89,11 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
       .pipe(
         startWith(''),
         takeUntil(this.unsubscribe$),
-        debounceTime(500), // Espera 300 ms después de que el usuario deje de escribir.
+        filter((v: string) => v.length >= 2),
+        map((v) => this.updateSearchParams(v)),
+        debounceTime(450),
         distinctUntilChanged(), // Solo emite un valor si es diferente del anterior.
-        map((value: string) => this.updateSearchParams(value)),
         switchMap((v: string) => {
-          if (v.length <= 1) {
-            this.currentIcon.set(IconOptions.Search);
-          }
-          if (this.valueIsEmail(v)) {
-            this.currentIcon.set(this.iconOptions.Email);
-            this.SearchParms = {
-              ...this.SearchParms,
-              searchValues: { email: v },
-            };
-          }
-          if (this.valueIsNumber(v)) {
-            this.currentIcon.set(this.iconOptions.Phone);
-            this.SearchParms = {
-              ...this.SearchParms,
-              searchValues: { number: v },
-            };
-          }
-          if (v.length <= 2) return [];
-
           return this.studentService.searchStudent(v, this.SearchParms);
         })
       )
@@ -105,12 +103,28 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
         },
       });
   }
+
+  private forceReload(): Observable<SearchStudentResponse> {
+    return this.studentService.searchStudent(
+      this.searchInput.value,
+      this.SearchParms
+    );
+  }
+
   private updateSearchParams(value: string): string {
+    if (this.valueIsEmail(value)) {
+      this.currentIcon.set(this.iconOptions.Email);
+    } else if (this.valueIsNumber(value)) {
+      this.currentIcon.set(this.iconOptions.Phone);
+    } else {
+      this.currentIcon.set(this.iconOptions.Search);
+    }
+
     const searchFieldMap: Record<IconOptions, string> = {
-      [IconOptions.Person]: 'name',
       [IconOptions.Email]: 'email',
       [IconOptions.Phone]: 'number',
-      [IconOptions.Search]: '',
+      [IconOptions.Search]: 'name',
+      [IconOptions.Person]: 'name'
     };
 
     const field = searchFieldMap[this.currentIcon()] || 'name';
@@ -132,7 +146,7 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
 
 enum IconOptions {
   Search = 'search',
-  Person = 'person',
   Email = 'email',
   Phone = 'phone',
+  Person = 'person'
 }

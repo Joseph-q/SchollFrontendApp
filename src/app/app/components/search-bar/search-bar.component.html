@@ -12,14 +12,14 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="onChangeIcon(iconOptions.Person)">Nombre</button>
                 <button mat-menu-item (click)="onChangeIcon(iconOptions.Email)">Email</button>
-                <button mat-menu-item (click)="onChangeIcon(iconOptions.Phone)">Numbero</button>
+                <button mat-menu-item (click)="onChangeIcon(iconOptions.Phone)">Numero</button>
             </mat-menu>
         </span>
-        <input maxlength="30" [formControl]="searchInput" [matAutocomplete]="auto" placeholder="Buscar Estudiante">
+        <input #searchInputElement maxlength="30" [formControl]="searchInput" [matAutocomplete]="auto" placeholder="Buscar Estudiante">
     </div>
     <mat-autocomplete #auto="matAutocomplete">
         @for (option of (filteredOptions)?.hits ?? []; track $index) {
-        <mat-option [value]="option.name + ' ' +option.lastname" [routerLink]="['students',option.id]">
+        <mat-option [value]="searchInput.value" [routerLink]="['students',option.id]">
             <span><small>{{option.name}}</small></span> |
             <span><small>{{option.email}}</small></span> |
             <span><small>{{option.number}}</small></span>
