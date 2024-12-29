@@ -16,14 +16,13 @@ import {
   startWith,
   switchMap,
   takeUntil,
-  tap,
 } from 'rxjs/operators';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { StudentsService } from '../../../core/services/student/students.service';
 import { SearchStudentResponse } from '../../../core/services/student/interfaces/response/SearchStudent.interface';
 
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SearchSvg } from '../svg/search.svg';
 import { QuerySearchStudent } from '@core/services/student/interfaces/request/SearchStudentQuery.interface';
@@ -42,7 +41,6 @@ import { MatMenuModule } from '@angular/material/menu';
     //Angular
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
     SearchSvg,
   ],
   templateUrl: './search-bar.component.html',
@@ -50,6 +48,8 @@ import { MatMenuModule } from '@angular/material/menu';
 })
 export class SearchBarComponent implements AfterViewInit, OnDestroy {
   private studentService = inject(StudentsService);
+  private router = inject(Router);
+
   private valueIsNumber = (value: string): boolean => /^\d+$/.test(value);
   private valueIsEmail = (value: string): boolean =>
     /^[\w.%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$/.test(value);
@@ -58,7 +58,8 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
   protected filteredOptions: SearchStudentResponse | null = null;
   protected iconOptions = IconOptions;
 
-  @ViewChild('searchInputElement') searchInputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInputElement')
+  searchInputElement!: ElementRef<HTMLInputElement>;
 
   private SearchParms: QuerySearchStudent = {
     limit: 5,
@@ -70,25 +71,36 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
 
   onChangeIcon(iconName: IconOptions) {
     this.currentIcon.set(iconName);
-    if(iconName == IconOptions.Email){
-      this.SearchParms= {...this.SearchParms,searchValues:{email:this.searchInput.value}}
-    }else if(iconName == IconOptions.Phone){
-      this.SearchParms= {...this.SearchParms,searchValues:{number:this.searchInput.value}}
-    }else{
-      this.SearchParms= {...this.SearchParms,searchValues:{name:this.searchInput.value}}
+    if (iconName == IconOptions.Email) {
+      this.SearchParms = {
+        ...this.SearchParms,
+        searchValues: { email: this.searchInput.value },
+      };
+    } else if (iconName == IconOptions.Phone) {
+      this.SearchParms = {
+        ...this.SearchParms,
+        searchValues: { number: this.searchInput.value },
+      };
+    } else {
+      this.SearchParms = {
+        ...this.SearchParms,
+        searchValues: { name: this.searchInput.value },
+      };
     }
 
-    this.forceReload().subscribe((v) => {
-      this.filteredOptions = v;
-      this.searchInputElement.nativeElement.focus();
-    });
+    this.forceReload()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((v) => {
+        this.filteredOptions = v;
+        this.searchInputElement.nativeElement.focus();
+      });
   }
 
   ngAfterViewInit(): void {
     this.searchInput.valueChanges
       .pipe(
-        startWith(''),
         takeUntil(this.unsubscribe$),
+        startWith(''),
         filter((v: string) => v.length >= 2),
         map((v) => this.updateSearchParams(v)),
         debounceTime(450),
@@ -102,6 +114,10 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
           this.filteredOptions = filteredResults; // Asigna los resultados filtrados a la variable observable
         },
       });
+  }
+
+  onSelectOption(studentId: number) {
+    this.router.navigate(['students', studentId]);
   }
 
   private forceReload(): Observable<SearchStudentResponse> {
@@ -124,7 +140,7 @@ export class SearchBarComponent implements AfterViewInit, OnDestroy {
       [IconOptions.Email]: 'email',
       [IconOptions.Phone]: 'number',
       [IconOptions.Search]: 'name',
-      [IconOptions.Person]: 'name'
+      [IconOptions.Person]: 'name',
     };
 
     const field = searchFieldMap[this.currentIcon()] || 'name';
@@ -148,5 +164,5 @@ enum IconOptions {
   Search = 'search',
   Email = 'email',
   Phone = 'phone',
-  Person = 'person'
+  Person = 'person',
 }

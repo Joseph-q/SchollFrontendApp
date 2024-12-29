@@ -19,7 +19,7 @@
     </div>
     <mat-autocomplete #auto="matAutocomplete">
         @for (option of (filteredOptions)?.hits ?? []; track $index) {
-        <mat-option [value]="searchInput.value" [routerLink]="['students',option.id]">
+        <mat-option [value]="searchInput.value" (onSelectionChange)="onSelectOption(option.id)">
             <span><small>{{option.name}}</small></span> |
             <span><small>{{option.email}}</small></span> |
             <span><small>{{option.number}}</small></span>
