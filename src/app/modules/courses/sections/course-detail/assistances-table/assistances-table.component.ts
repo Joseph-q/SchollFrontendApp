@@ -17,8 +17,6 @@ import {
 import { StudentFromCourseAssit } from '@core/services/assitance/interfaces/res/CourseAssistanceResponse';
 import { AssistanceService } from '@core/services/assitance/assistance.service';
 
-
-
 @Component({
   selector: 'app-assistances-table',
   standalone: true,
@@ -72,10 +70,13 @@ export class AssistancesTableComponent implements OnInit, OnDestroy {
   // Métodos auxiliares
   private extractDate(dateParam: string): Date | null {
     const date = new Date(dateParam);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
     return isNaN(date.getTime()) ? null : date;
   }
 
-  private loadAssistanceSalon(date: Date): Observable<StudentFromCourseAssit[]> {
+  private loadAssistanceSalon(
+    date: Date
+  ): Observable<StudentFromCourseAssit[]> {
     if (!this.courseId) {
       return of([]); // Devuelve un observable vacío si no hay curso
     }

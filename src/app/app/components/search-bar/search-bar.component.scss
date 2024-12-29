@@ -1,82 +1,38 @@
-.search {
-    width: 100%;
+.container {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+}
+
+
+.input-container {
     position: relative;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #D5D5D5;
+    stroke: 1px solid #D5D5D5;
+    border-radius: 5px;
 
-    .search-bar {
-        display: flex;
-        flex-direction: row;
-        border: 1px solid #D5D5D5;
-        stroke: 1px solid #D5D5D5;
-        /* Color de fondo de la barra de búsqueda */
-        border-radius: 20px;
-        padding: 5px 15px;
-
-        .icon {
-            display: flex;
-            align-items: center;
-        }
-
-        input {
-            border: none;
-            outline: none;
-            background: none;
-            font-size: 1rem;
-            flex: 1;
-            margin: 0 20px;
-
-            ::placeholder {
-                color: #ffffffcc;
-
-            }
-        }
-
-    }
-
-
-    .search-results-container {
+    .icon {
         position: absolute;
-        top: 100%;
-        /* Para que aparezca justo debajo del input */
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: 150px;
-        box-shadow: -5px 4px 8px rgba(0, 0, 0, 0.2);
-        background-color: #F5F6FA;
-        border-radius: 2px;
-
-        .search-results {
-            border-collapse: collapse;
-            user-select: none;
-            cursor: pointer;
-            max-width: 100%;
-            min-width: 100%;
-
-            .column {
-                justify-content: space-between;
-
-                .column-field {
-                    max-width: 10rem;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-              
-
-
-        }
-
+        top: 55%;
+        left: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        /* Evita que el cursor interactúe con el icono */
     }
 
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 1rem;
+        flex: 1;
+        padding: 10px 15px;
+        padding-left: 40px;
+    }
 }
 
-.column:hover {
-    background-color: #5789ff;
-    color: white;
-}
-}

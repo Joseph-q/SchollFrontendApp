@@ -88,6 +88,7 @@ export class AddStudentFormComponent {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         complete:()=>{
+          this.OnCreated()
           this.unsubscribe$.next();
         }
       });

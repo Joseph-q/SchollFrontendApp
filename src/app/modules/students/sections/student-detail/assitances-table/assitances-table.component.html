@@ -22,8 +22,8 @@
             </div>
         </th>
         <mat-menu #courses="matMenu">
-            @for (course of (coursesAssisted$|async); track $index) {
-            @if (this.courseId && (course.id).toString() != this.courseId) {
+            @for (course of (coursesAssisted$|async) ?? []; track $index) {
+            @if (this.courseId && course && (course.id).toString() != this.courseId) {
             <button mat-menu-item (click)="onClickCourse(course.id)">
                 {{course.name}}
             </button>

@@ -24,33 +24,34 @@ import { DeleteDialogComponent } from '@students/components/dialog/delete-dialog
   templateUrl: './card-student.component.html',
   styleUrl: './card-student.component.scss',
 })
-export class CardStudentComponent implements OnInit, OnDestroy {
-  @Input({ required: true }) studentId: string | null = null;
+export class CardStudentComponent implements OnDestroy {
   readonly dialog = inject(MatDialog);
   private unsubscribe$ = new Subject<void>();
 
+  studentId = '';
   studentInfo!: Observable<StudentResponse | null>;
+
+  @Input({ required: true }) set id(studentId: string | null) {
+    if (!studentId) return;
+    this.studentId = studentId;
+    this.studentInfo = this.studentService.getStudent(studentId).pipe(
+      takeUntil(this.unsubscribe$),
+      map((value) => {
+        if (!value) {
+          this.notificationService.sendErrorMessage(
+            'Estudiante no econtrado intentelo de nuevo'
+          );
+          return null;
+        }
+        return value;
+      })
+    );
+  }
 
   constructor(
     private studentService: StudentsService,
     private notificationService: NotificationService
   ) {}
-
-  ngOnInit(): void {
-    if (this.studentId)
-      this.studentInfo = this.studentService.getStudent(this.studentId).pipe(
-        takeUntil(this.unsubscribe$),
-        map((value) => {
-          if (!value) {
-            this.notificationService.sendErrorMessage(
-              'Estudiante no econtrado intentelo de nuevo'
-            );
-            return null;
-          }
-          return value;
-        })
-      );
-  }
 
   OnUpdate() {
     this.dialog.open(UpdateStudentDialogComponent, {

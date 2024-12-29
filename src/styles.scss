@@ -5,6 +5,9 @@
   @include mat.divider-overrides((
     color: #ddd,
   ));
+  @include mat.toolbar-overrides((
+    container-background-color: white,
+  ));
 }
 
 

@@ -1,5 +1,5 @@
-import { GenderEnum } from "../../../../../shared/modules/students/constants/GenderEnum";
-import MetadataPage from "../../../../../shared/interfaces/Metadata.constant";
+import { GenderEnum } from "@shared/modules/students/constants/GenderEnum";
+import MetadataPage from "@shared/interfaces/Metadata.constant";
 
 
 export interface StudentsResponse {

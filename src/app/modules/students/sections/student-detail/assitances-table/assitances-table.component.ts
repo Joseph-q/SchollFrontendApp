@@ -102,6 +102,7 @@ export class AssitancesTableComponent
       .getStudentCourseAssisted(this.studentId)
       .pipe(
         tap((courses) => {
+          if(!courses) return;
           if (!this.courseId && courses.length > 0) {
             this.courseId = courses[0].id.toString();
             this.router.navigate([], {

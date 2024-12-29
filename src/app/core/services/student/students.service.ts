@@ -8,6 +8,7 @@ import { StudentResponse } from './interfaces/response/StudentResponse.interface
 import { CreateStudentRequest } from './interfaces/request/CreateStudentRequest.interface';
 import { UpdateStudentRequest } from './interfaces/request/UpdateStudent.Interface';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { QuerySearchStudent } from '@core/services/student/interfaces/request/SearchStudentQuery.interface';
 
 //Request
 
@@ -17,7 +18,10 @@ import { NotificationService } from '@core/services/notification/notification.se
 export class StudentsService {
   private url = 'http://localhost:8080/students';
 
-  constructor(private http: HttpClient, private notificationService:NotificationService) {}
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationService
+  ) {}
   private updateTrigger$ = new BehaviorSubject<void>(undefined); // Disparador de actualizaciones
 
   // Obtener todos los estudiantes
@@ -41,10 +45,28 @@ export class StudentsService {
     );
   }
 
-  searchStudent(query: string): Observable<SearchStudentResponse> {
-    return this.http.get<SearchStudentResponse>(
-      `${this.url}/search?query=${query}`
-    );
+  searchStudent(
+    query: string,
+    queryParams?: QuerySearchStudent
+  ): Observable<SearchStudentResponse> {
+    let params = new HttpParams().set('query', query);
+
+    if (queryParams) {
+      params = params.set('limit', queryParams.limit);
+      const searchValues = queryParams.searchValues;
+
+      if (searchValues.email) {
+        params = params.set('email', searchValues.email);
+      } else if (searchValues.number) {
+        params = params.set('number', searchValues.number);
+      } else if (searchValues.name) {
+        params = params.set('name', searchValues.name);
+      }
+    }
+
+    return this.http.get<SearchStudentResponse>(`${this.url}/search`, {
+      params,
+    });
   }
 
   // Obtener un estudiante por ID
@@ -67,7 +89,9 @@ export class StudentsService {
       tap({
         complete: () => {
           this.triggerUpdate();
-          this.notificationService.sendCompleteMessage("Estudiante Creado Correctamente!!")
+          this.notificationService.sendCompleteMessage(
+            'Estudiante Creado Correctamente!!'
+          );
         },
       })
     );
@@ -82,7 +106,9 @@ export class StudentsService {
       tap({
         complete: () => {
           this.triggerUpdate();
-          this.notificationService.sendCompleteMessage("Estudiante Actualizado Correctamente!!")
+          this.notificationService.sendCompleteMessage(
+            'Estudiante Actualizado Correctamente!!'
+          );
         },
       })
     );
@@ -94,7 +120,9 @@ export class StudentsService {
       tap({
         complete: () => {
           this.triggerUpdate();
-          this.notificationService.sendCompleteMessage("Estudiante Borrado Correctamente!!")
+          this.notificationService.sendCompleteMessage(
+            'Estudiante Borrado Correctamente!!'
+          );
         },
       })
     );

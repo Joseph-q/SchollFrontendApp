@@ -1,34 +1,26 @@
-<div class="search">
-  <div class="search-bar">
-    <span class="icon">
-      <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g opacity="0.8">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M9.94568 12.8643C12.6744 11.7047 13.9464 8.55259 12.7867 5.82396C11.627 3.09533 8.47483 1.82341 5.7461 2.98305C3.01737 4.14269 1.74541 7.29476 2.90509 10.0234C4.06477 12.752 7.21695 14.0239 9.94568 12.8643Z"
-            stroke="#202224" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M11.6417 11.7192L15.8053 15.8833" stroke="#202224" stroke-width="1.2" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </g>
-      </svg>
-    </span> <!-- Icono de la lupa -->
-    <input type="text" placeholder="Buscar" [formControl]="inputControl" (click)="onClickInput()">
-  </div>
-
-
-  @if(openDialog &&(filteredOptions$ | async); as filter){
-  <div class="search-results-container">
-    <table class="search-results">
-      <tbody @slideDown>
-        @for (result of filter.hits; track $index) {
-        <tr class="column" (dblclick)="toStudent(result.id)">
-          <td class="column-field"> <small>{{result.name}}</small></td>
-          <td class="column-field"><small>{{result.email}}</small></td>
-          <td class="column-field"><small>{{result.number}}</small></td>
-        </tr>
+<form class="container">
+    <div class="input-container">
+        <span class="icon">
+            <svg width="20" height="20" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.8">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M9.94568 12.8643C12.6744 11.7047 13.9464 8.55259 12.7867 5.82396C11.627 3.09533 8.47483 1.82341 5.7461 2.98305C3.01737 4.14269 1.74541 7.29476 2.90509 10.0234C4.06477 12.752 7.21695 14.0239 9.94568 12.8643Z"
+                        stroke="#202224" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M11.6417 11.7192L15.8053 15.8833" stroke="#202224" stroke-width="1.2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+            </svg>
+        </span>
+        <input maxlength="30" [formControl]="searchInput" [matAutocomplete]="auto" placeholder="Buscar Estudiante">
+    </div>
+    <mat-autocomplete #auto="matAutocomplete">
+        @for (option of (filteredOptions)?.hits ?? []; track $index) {
+        <mat-option [value]="option.name" [routerLink]="['students',option.id]">
+            <span><small>{{option.name}}</small></span> |
+            <span><small>{{option.email}}</small></span> |
+            <span><small>{{option.number}}</small></span>
+        </mat-option>
         }
-      </tbody>
-    </table>
-  </div>
-  }
+    </mat-autocomplete>
 
-</div>
+</form>

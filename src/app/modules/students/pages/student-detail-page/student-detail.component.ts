@@ -9,6 +9,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   Input,
+  signal,
 } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -38,16 +39,8 @@ import { Location } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class StudentDetailComponent {
-  protected studentId: string | null = null;
-  protected drawerExpanded: boolean = false;
-
+  protected studentId = signal('');
   @Input() set id(studentId: string) {
-    this.studentId = studentId;
+    this.studentId.set(studentId);
   }
-
-
-  toggleDrawer() {
-    this.drawerExpanded = !this.drawerExpanded;
-  }
-
 }
