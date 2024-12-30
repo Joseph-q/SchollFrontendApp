@@ -178,7 +178,6 @@ export class StudentsTableComponent
         tap((v: string) => this.orderBy.set(v)),
         filter(() => {
           if (this.pageSize() >= this.totalItems()) {
-            console.log('entra');
             this.datasource = this.datasource!.pipe(
               map((v) => {
                 return {

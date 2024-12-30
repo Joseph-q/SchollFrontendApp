@@ -1,9 +1,27 @@
+<app-nav-bar (onClickMenu)="drawer.toggle()"></app-nav-bar>
+
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="side" [opened]="true" class="side-nav">
     <app-side-bar (showModal)="OpenDialog()"></app-side-bar>
   </mat-sidenav>
 
   <mat-sidenav-content class="content">
-    <router-outlet></router-outlet>
+      <div class="notifications">
+        @for (messageComplete of completeMessages ; track $index ) {
+        @if (messageComplete) {
+        <app-notification-complete [message]="messageComplete.message"
+            (onclick)="onDestroyElementComplete( messageComplete.id)"></app-notification-complete>
+        }
+        }
+  
+        @for (messageError of errorMessages; track $index) {
+        @if (messageError) {
+        <app-notification-error [message]="messageError.message" (onclick)="onDestroyElementError(messageError.id)">
+  
+        </app-notification-error>
+        }
+        }
+    </div>  
+      <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

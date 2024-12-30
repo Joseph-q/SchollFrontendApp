@@ -16,3 +16,17 @@ mat-sidenav-container {
 .course-form{
     width: 100%;
 }
+
+.notifications {
+    position: fixed;
+    right: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column; // Alinea verticalmente los elementos
+    gap: 10px; // Añade espacio entre notificaciones (opcional)
+    max-height: 30%;
+    overflow: hidden;
+    z-index: 1000;
+}
