@@ -1,22 +1,37 @@
-.nav-left{
+.nav-left {
     display: flex;
     align-items: center;
 }
 
+.nav-left button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
 
-.content-center{
+.nav-left mat-icon {
+    font-size: 1.5rem;
+}
+
+
+
+.content-center {
     padding-left: 100px;
     align-content: center;
     flex-grow: 1;
-    .container-search{
+
+    .container-search {
         width: 100%;
         max-width: 480px;
     }
 }
 
-.nav-container{
+.nav-container {
     display: flex;
     background-color: white;
     border-bottom: 1px solid #ddd;
     height: 10vh;
+
+    padding: 0 10px;
 }
