@@ -27,6 +27,13 @@ export const COURSE_ROUTES: Routes = [
             './sections/course-detail/historial-table/historial-table.component'
           ).then((m) => m.HistorialTableComponent),
       },
+      {
+        path: 'inscriptions',
+        loadComponent: () =>
+          import(
+            './sections/course-detail/inscriptions/inscriptions.component'
+          ).then((m) => m.InscriptionsComponent),
+      },
     ],
   },
 ];

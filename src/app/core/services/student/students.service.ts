@@ -28,13 +28,16 @@ export class StudentsService {
   getStudents(
     page?: number,
     limit?: number,
-    order?: string
+    order?: string,
+    courseId?:string
   ): Observable<StudentsResponse> {
     const params = new HttpParams({
       fromObject: {
         ...(page && { page: page.toString() }),
         ...(limit && { limit: limit.toString() }),
         ...(order && { orderBy: order }),
+        ...(courseId && { courseId: courseId }),
+
       },
     });
 

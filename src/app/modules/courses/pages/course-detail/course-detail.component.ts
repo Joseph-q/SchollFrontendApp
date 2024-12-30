@@ -63,6 +63,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   public listLinks: Link[] = [
     { href: 'assistances', name: 'Asistencias' },
     { href: 'historial', name: 'Historial' },
+    { href: 'inscriptions', name: 'Inscripciones' },
   ];
 
   private unsubscribe$ = new Subject<void>();
