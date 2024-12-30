@@ -1,10 +1,10 @@
-import { GenderEnum } from "@shared/modules/students/constants/GenderEnum";
-import MetadataPage from "@shared/interfaces/Metadata.constant";
-
+import { GenderEnum } from '@shared/modules/students/constants/GenderEnum';
+import MetadataPage from '@shared/interfaces/Metadata.constant';
 
 export interface StudentsResponse {
   data: StudentFromStudents[];
   metadata: MetadataPage;
+  queryParams: StudentsQueryResponse;
 }
 
 export interface StudentFromStudents {
@@ -17,4 +17,11 @@ export interface StudentFromStudents {
   birthday?: string | null;
   createdAt: string; // Representación de time.Time
   updatedAt: string; // Representación de time.Time
+}
+
+export interface StudentsQueryResponse {
+  limit: number;
+  page: number;
+  orderBy: string;
+  courseId: string;
 }

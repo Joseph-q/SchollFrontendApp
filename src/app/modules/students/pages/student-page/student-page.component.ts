@@ -45,10 +45,6 @@ export class StudentPageComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
 
-  protected pageSize: number = 50;
-  protected page: number = 1;
-  protected pageIndex = this.page - 1;
-
   public studentsResponse$!: Observable<StudentsResponse>;
 
   OnClickUpdate(id: number) {
@@ -71,10 +67,6 @@ export class StudentPageComponent implements OnInit {
   constructor(private studentService: StudentsService) {}
 
   ngOnInit(): void {
-    this.studentsResponse$ = this.studentService.getStudents(
-      this.page,
-      this.pageSize,
-      'createdDesc'
-    );
+    this.studentsResponse$ = this.studentService.getStudents(1,50,'createdDesc');
   }
 }

@@ -21,8 +21,7 @@
 
         <filter-table>
             <app-students-table (updateStudent)="OnClickUpdate($event)" (deleteStudent)="OnClickDelete($event)"
-                [datasource]="student.data" [(totalItems)]="student.metadata.total" [(pageIndex)]="pageIndex"
-                [(pageSize)]="pageSize"></app-students-table>
+                [datasource]="student"></app-students-table>
         </filter-table>
     </app-filter-table>
 

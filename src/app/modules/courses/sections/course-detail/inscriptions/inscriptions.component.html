@@ -1,1 +1,3 @@
-<app-students-table [colums]="studentTableColumns" [datasource]="(dataSource | async)?.data ?? []"></app-students-table>
+@if((dataSource | async); as d){
+    <app-students-table [colums]="studentTableColumns" [datasource]="d"></app-students-table>
+}

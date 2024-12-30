@@ -8,13 +8,14 @@
         </div>
         }
     </div>
-    <table mat-table [dataSource]="datasource" matSort matSortActive="created" matSortDisableClear
+    <table mat-table [dataSource]="(datasource | async)?.data ?? []" matSort matSortActive="created" matSortDisableClear
         matSortDirection="desc">
         @for (columShow of ColumsToShow; track $index) {
         @if (columShow.columRef == "created") {
         <ng-container matColumnDef="created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> {{columShow.columName}}</th>
-            <td mat-cell *matCellDef="let element"> {{(element.createdAt | date: 'dd MMMM' : 'UTC')+" de " + (element.createdAt
+            <td mat-cell *matCellDef="let element"> {{(element.createdAt | date: 'dd MMMM' : 'UTC')+" de " +
+                (element.createdAt
                 | date: 'yyyy')}} </td>
         </ng-container>
         }
