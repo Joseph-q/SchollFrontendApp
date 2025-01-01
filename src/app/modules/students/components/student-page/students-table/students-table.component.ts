@@ -13,7 +13,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -27,9 +27,6 @@ import {
 } from '@core/services/student/interfaces/response/StudentsResponse.interface';
 import { StudentsService } from '@core/services/student/students.service';
 import MetadataPage from '@shared/interfaces/Metadata.constant';
-import { StudentResponse } from '@core/services/student/interfaces/response/StudentResponse.interface';
-import { CustomMatPaginatorIntl } from '@shared/components/cutom-mat-paginator/custom-mat-paginator.service';
-import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-students-table',
@@ -45,17 +42,12 @@ import { MatRippleModule } from '@angular/material/core';
     MatPaginatorModule,
     AsyncPipe,
   ],
-  providers:[{
-    provide:MatPaginatorIntl,
-    useClass: CustomMatPaginatorIntl
-  }]
 })
 export class StudentsTableComponent
   implements AfterViewInit, OnDestroy, OnInit
 {
   private studentService: StudentsService = inject(StudentsService);
   private router: Router = inject(Router);
-
 
   //Table Structure
   @Input()
@@ -105,7 +97,7 @@ export class StudentsTableComponent
   })
   datasource: Observable<StudentsResponse> | null = null;
 
-  @Input({transform:booleanAttribute}) hidebuttons = false;
+  @Input({ transform: booleanAttribute }) hidebuttons = false;
 
   pageSize = signal(10);
   pageIndex = signal(0);
