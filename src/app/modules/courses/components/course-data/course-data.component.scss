@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filter-item{
+    display: flex;
+    flex-direction: column;
+    &.center{
+        text-align: center  ;
+    }
+}
+

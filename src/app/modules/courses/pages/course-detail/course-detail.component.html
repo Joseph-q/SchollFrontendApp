@@ -1,49 +1,18 @@
 <main class="main-content">
     <!-- height is the height of (main-content.height - margin) -->
-    <app-filter-table scrollable height="calc(90vh - 40px)">
+    <app-filter-table scrollable height="calc(90vh - 40px)" hideFilter>
         <filter-list>
-            <button class="button-select" [matMenuTriggerFor]="links">
-                <h3 class="filter-title">{{optionLink.name}}</h3>
-            </button>
-            <mat-menu #links>
-                <mat-nav-list>
-                    @for (item of listLinks; track $index) {
-                    @if(item.name != optionLink.name){
-                    <button mat-menu-item (click)="onClickLink(item)">{{item.name}}</button>
-                    }
-                    }
-                </mat-nav-list>
-            </mat-menu>
+            <mat-button-toggle-group hideSingleSelectionIndicator class="selection-toggle">
+                <mat-button-toggle routerLink="historial" routerLinkActive="active">Historial</mat-button-toggle>
+                <mat-button-toggle routerLink="assistances" routerLinkActive="active">Asistencias</mat-button-toggle>
+                <mat-button-toggle routerLink="inscriptions" routerLinkActive="active">Inscripciones</mat-button-toggle>
+            </mat-button-toggle-group>
         </filter-list>
 
         <filter-details>
-            <div class="filter-details">
-                <div class="filter-item">
-                    <span>Curso:</span>
-                    <div>
-                        <button [matMenuTriggerFor]="options" class="button-select">
-                            <span class="course-selected">{{courseSelected.name}}</span>
-                            <mat-icon>keyboard_arrow_down</mat-icon>
-                        </button>
-                        <mat-menu #options="matMenu">
-                            <mat-nav-list>
-                                @for (course of courses; track $index) {
-                                @if(course.id != courseSelected.id){
-                                <button mat-menu-item (click)="onClickCourse(course.id)">{{course.name}}</button>
-
-                                }
-
-                                }
-                            </mat-nav-list>
-                        </mat-menu>
-                    </div>
-
-                </div>
-                <span class="filter-item center">
-                    Estudiantes inscritos:
-                    <p>{{courseSelected.totalStudents}}</p>
-                </span>
-            </div>
+            @if(courseResponse | async; as course){
+            <app-course-data [courseResponse]="course" [id]="courseId"></app-course-data>
+            }
         </filter-details>
 
         <filter-table>

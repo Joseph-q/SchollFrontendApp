@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="filter-item">
+        <span>Curso:</span>
+        <app-select-course-menu [courses]="courseResponse.courses" [courseId]="course.id"></app-select-course-menu>
+    </div>
+    <span class="filter-item center">
+        Estudiantes inscritos:
+        <p>{{course.totalStudents}}</p>
+    </span>
+</div>
