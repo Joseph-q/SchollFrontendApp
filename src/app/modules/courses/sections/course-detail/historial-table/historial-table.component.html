@@ -3,7 +3,9 @@
         <table mat-table [dataSource]="historialAssistances$">
 
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> <app-picker-range-text [rangeDate]="rangeDate()"
+                <th mat-header-cell *matHeaderCellDef> 
+                    Fecha:
+                    <app-picker-range-text [rangeDate]="rangeDate()"
                         (_onUserSelect)="onSelecDate($event)"></app-picker-range-text> </th>
                 <td mat-cell *matCellDef="let assistance">
                     {{ (assistance.date | date:'dd MMM' : 'UTC') + " de " + (assistance.date | date:'yyyy' : 'UTC') }}
@@ -12,7 +14,8 @@
             </ng-container>
 
             <ng-container matColumnDef="total">
-                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <th mat-header-cell *matHeaderCellDef> 
+                    Total </th>
                 <td mat-cell *matCellDef="let assistance"> {{assistance.total}} </td>
             </ng-container>
 

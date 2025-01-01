@@ -23,7 +23,7 @@
             </ng-container>
 
             <ng-container matColumnDef="entrance">
-                <th mat-header-cell *matHeaderCellDef> <app-datepicker-popup (_userSelection)="onSelectDate()" [(selected)]="date"></app-datepicker-popup> </th>
+                <th mat-header-cell *matHeaderCellDef> Entrada <app-datepicker-popup (_userSelection)="onSelectDate()" [(selected)]="date"></app-datepicker-popup> </th>
                 <td mat-cell *matCellDef="let student"> {{student.entrance}} </td>
                 <td mat-footer-cell *matFooterCellDef> {{totalAssistances}} </td>
             </ng-container>

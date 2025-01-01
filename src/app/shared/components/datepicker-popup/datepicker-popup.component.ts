@@ -13,6 +13,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import DateToString from '@shared/functions/format-date-to-string';
 
 @Component({
   selector: 'app-datepicker-popup',
@@ -39,9 +40,12 @@ export class DatepickerPopupComponent {
   date = new FormControl(this.selected());
 
   OnDateSelected() {
-    if (this.date.value == null || this.selected() === this.date.value) return; 
+    if (
+      this.date.value == null ||
+      DateToString(this.selected()) === DateToString(this.date.value)
+    )
+      return;
     this.selected.set(this.date.value);
-    this._userSelection.emit()
-
+    this._userSelection.emit();
   }
 }
