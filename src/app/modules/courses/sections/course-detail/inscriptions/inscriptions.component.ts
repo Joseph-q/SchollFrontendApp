@@ -40,11 +40,6 @@ export class InscriptionsComponent {
 
   studentTableColumns: StudentTableColums[] = [
     {
-      columName: 'Registrado',
-      columRef: StudentTableColumnRef.Created,
-      columData: [''],
-    },
-    {
       columName: 'Nombre',
       columRef: StudentTableColumnRef.Name,
       columData: ['name', 'lastname'],

@@ -1,25 +1,15 @@
 .table-container {
-    position: relative;
-
+    position: relative; 
+    width: 100%;
+    height: 100%;
 }
 
-
-.mat-mdc-row .mat-mdc-cell {
-    border-bottom: 1px solid rgba(151, 151, 151, 0.2);
-    cursor: pointer;
-    user-select: none;
-
-   
-
-}
-.mat-mdc-row:hover .mat-mdc-cell{
-    background-color: rgba(0, 0, 0, 0.1);
-
+.sticky-paginator {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
 }
 
-.mat-mdc-paginator{
-    width: 250px;
-}
 
 
 .loading-shade {
@@ -58,11 +48,11 @@
         height: 30px;
         fill: #00B69B;
 
-       
+
     }
 
-    :hover{
-        fill:#00c7a9
+    :hover {
+        fill: #00c7a9
     }
 }
 
@@ -73,7 +63,7 @@
         fill: #EF3826;
     }
 
-    :hover{
+    :hover {
         fill: #ff0404;
     }
 }
