@@ -4,9 +4,13 @@
 }
 
 
-button{
+.tag-button{
     background: none;
     border: none;
+    cursor: pointer;
+}
+
+.date-text{
     font-weight: 700;
     color: gray;
     &:hover{

@@ -1,41 +1,47 @@
 import { DatePipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   model,
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCard } from '@angular/material/card';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-datepicker-popup',
   standalone: true,
   imports: [
+    //Material
     MatDatepickerModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatCard,
+    MatFormFieldModule,
+    MatInputModule,
+    //Angular
+    FormsModule,
+    ReactiveFormsModule,
     DatePipe,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './datepicker-popup.component.html',
   styleUrl: './datepicker-popup.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatepickerPopupComponent {
   @Output() _userSelection: EventEmitter<void> = new EventEmitter();
-
   selected = model<Date>(new Date());
-  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
+
+  date = new FormControl(this.selected());
 
   OnDateSelected() {
-    this.trigger.closeMenu();
+    if (this.date.value == null || this.selected() === this.date.value) return; 
+    this.selected.set(this.date.value);
+    this._userSelection.emit()
 
-    this._userSelection.emit();
   }
 }

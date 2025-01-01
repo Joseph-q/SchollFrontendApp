@@ -54,7 +54,6 @@ export class HomePageComponent {
             }
           }, 5000);
         } else {
-          console.log('El array está vacío');
         }
         this.completeMessages = value;
       },
@@ -70,7 +69,6 @@ export class HomePageComponent {
             }
           }, 5000);
         } else {
-          console.log('El array está vacío');
         }
 
         this.errorMessages = value;
