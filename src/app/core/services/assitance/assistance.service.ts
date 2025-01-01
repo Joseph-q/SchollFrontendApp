@@ -79,13 +79,13 @@ export class AssistanceService {
     queryParms?: QueryParamsHistorialAssistance
   ): Observable<DataHistorial[]> {
     if (queryParms) {
-      const { courseId, date, startDate, endDate } = queryParms;
+      const { courseId, date, range } = queryParms;
       const params = new HttpParams({
         fromObject: {
           ...(courseId && { courseId }),
           ...(date && { date: DateToString(date) }),
-          ...(startDate && { startDate: DateToString(startDate) }),
-          ...(endDate && { endDate: DateToString(endDate) }),
+          ...(range?.startDate && { startDate: DateToString(range.startDate) }),
+          ...(range?.endDate && { endDate: DateToString(range.endDate) }),
         },
       });
       return this.http

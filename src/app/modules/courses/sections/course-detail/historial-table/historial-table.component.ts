@@ -47,7 +47,7 @@ export class HistorialTableComponent implements OnDestroy {
     ),
   });
 
-  @Input() historialAssistances$!: Observable<AssistanceCount[]>;
+  historialAssistances$!: Observable<AssistanceCount[]>;
 
   @Input() set id(courseId: string) {
     if (!courseId) return;
@@ -55,8 +55,23 @@ export class HistorialTableComponent implements OnDestroy {
     this.historialAssistances$ = this.assistanceService
       .getHistorialAssistances({
         courseId: courseId,
-        startDate: this.rangeDate().startDate,
-        endDate: this.rangeDate().endDate,
+        range: this.rangeDate(),
+      })
+      .pipe(
+        // Extract the 'assistances' array from the response or return an empty array
+        map((v) => {
+          return v ? v[0].assistances : [];
+        })
+      );
+  }
+
+  onSelecDate(range: RangeDate) {
+    if (!this.courseId) return;
+
+    this.historialAssistances$ = this.assistanceService
+      .getHistorialAssistances({
+        courseId: this.courseId,
+        range: range,
       })
       .pipe(
         // Extract the 'assistances' array from the response or return an empty array

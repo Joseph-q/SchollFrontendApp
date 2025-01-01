@@ -1,7 +1,8 @@
+import { RangeDate } from '@core/services/assitance/interfaces/req/AssitanceSumaryQuery';
+
 export interface QueryParamsHistorialAssistance {
   courseId?: string;
   studentId?: string;
   date?: Date;
-  startDate?: Date;
-  endDate?: Date;
+  range?: RangeDate;
 }
