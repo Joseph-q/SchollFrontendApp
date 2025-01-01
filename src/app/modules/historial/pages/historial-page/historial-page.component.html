@@ -1,17 +1,20 @@
 <main class="main">
 
     <div class="header-container">
-        <app-card-statistics [title]="'Hoy'" description="Total Asistencias" [numberStadistic]="10">
+        @if ((todayHistorial |async); as h) {
+        <app-card-statistics title="Hoy" description="Total Asistencias" [numberStadistic]="h.data.length > 0 ? h.data[0].total :0">
             <historial-svg></historial-svg>
         </app-card-statistics>
+        }
+
     </div>
 
     <div class="content-table">
-        <app-filter-table  scrollable>
+        <app-filter-table scrollable>
             <filter-list>
                 <h3>Total Asistencias</h3>
             </filter-list>
-    
+
             <filter-details>
                 <div class="filter-details">
                     <div class="filter-item">
@@ -21,12 +24,12 @@
                     </div>
                 </div>
             </filter-details>
-    
+
             <filter-table>
                 <app-historial-assistances-table [range]="rangeDate()"></app-historial-assistances-table>
             </filter-table>
         </app-filter-table>
     </div>
-    
+
 
 </main>
