@@ -29,6 +29,7 @@ import { StudentsService } from '@core/services/student/students.service';
 import MetadataPage from '@shared/interfaces/Metadata.constant';
 import { StudentResponse } from '@core/services/student/interfaces/response/StudentResponse.interface';
 import { CustomMatPaginatorIntl } from '@shared/components/cutom-mat-paginator/custom-mat-paginator.service';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-students-table',
@@ -86,7 +87,7 @@ export class StudentsTableComponent
     },
 
     {
-      columName: 'ACTIONS',
+      columName: '',
       columRef: StudentTableColumnRef.Actions,
       columData: [],
     },

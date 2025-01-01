@@ -11,7 +11,6 @@
                     @if(item.name != optionLink.name){
                     <button mat-menu-item (click)="onClickLink(item)">{{item.name}}</button>
                     }
-
                     }
                 </mat-nav-list>
             </mat-menu>
@@ -40,16 +39,6 @@
                     </div>
 
                 </div>
-                @if(optionLink.href != "historial"){
-                <span class="filter-item">Fecha
-                    <app-datepicker-popup [(selected)]="date" (_userSelection)="onSelectDate()"></app-datepicker-popup>
-                </span>
-                }@else {
-                <span class="filter-item center">Fecha:
-                    <app-picker-range-text [rangeDate]="rangeDate"
-                        (_onUserSelect)="OnSelectRange($event)"></app-picker-range-text>
-                </span>
-                }
                 <span class="filter-item center">
                     Estudiantes inscritos:
                     <p>{{courseSelected.totalStudents}}</p>
