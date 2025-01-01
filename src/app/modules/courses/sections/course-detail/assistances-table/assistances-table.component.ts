@@ -16,27 +16,31 @@ import {
 
 import { StudentFromCourseAssit } from '@core/services/assitance/interfaces/res/CourseAssistanceResponse';
 import { AssistanceService } from '@core/services/assitance/assistance.service';
+import { DatepickerPopupComponent } from '../../../../../shared/components/datepicker-popup/datepicker-popup.component';
 
 @Component({
   selector: 'app-assistances-table',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatMenuModule],
+  imports: [
+    MatTableModule,
+    MatButtonModule,
+    MatMenuModule,
+    DatepickerPopupComponent,
+  ],
   templateUrl: './assistances-table.component.html',
   styleUrl: './assistances-table.component.scss',
 })
-export class AssistancesTableComponent implements OnInit, OnDestroy {
+export class AssistancesTableComponent implements OnDestroy {
   public displayedColumns = ['name', 'number', 'email', 'entrance'];
-  public salonAssitances: StudentFromCourseAssit[] = [];
+  public courseAssitances: StudentFromCourseAssit[] = [];
   public totalAssistances: number = 0;
   public courseId: string | null = null;
+  
+  protected date: Date = new Date();
 
-  private date: Date = new Date();
   private destroy$ = new Subject<void>();
 
-  constructor(
-    private assistanceService: AssistanceService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private assistanceService: AssistanceService) {}
 
   @Input() set id(courseId: string | null) {
     this.courseId = courseId;
@@ -45,44 +49,21 @@ export class AssistancesTableComponent implements OnInit, OnDestroy {
       .getAssistanceSalon(this.courseId, 1, 50, this.date)
       .pipe(takeUntil(this.destroy$))
       .subscribe((v) => {
-        this.salonAssitances = v.data.students || [];
-        this.totalAssistances = this.salonAssitances.length;
+        this.courseAssitances = v.data.students || [];
+        this.totalAssistances = this.courseAssitances.length;
       });
   }
 
-  ngOnInit(): void {
+  onSelectDate() {
     if (!this.courseId) return;
 
-    this.route.queryParams
-      .pipe(
-        takeUntil(this.destroy$),
-        map((params) => this.extractDate(params['date'])), // Método para extraer y validar la fecha
-        filter((date) => date !== null), // Continúa solo si la fecha es válida
-        tap((date) => (this.date = date!)), // Asigna la fecha
-        switchMap((date) => this.loadAssistanceSalon(date!)) // Método para cargar datos
-      )
-      .subscribe((students) => {
-        this.totalAssistances = students.length;
-        this.salonAssitances = students; // Evita reasignar observables
+    this.assistanceService
+      .getAssistanceSalon(this.courseId, 1, 50, this.date)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((v) => {
+        this.courseAssitances = v.data.students || [];
+        this.totalAssistances = this.courseAssitances.length;
       });
-  }
-
-  // Métodos auxiliares
-  private extractDate(dateParam: string): Date | null {
-    const date = new Date(dateParam);
-    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    return isNaN(date.getTime()) ? null : date;
-  }
-
-  private loadAssistanceSalon(
-    date: Date
-  ): Observable<StudentFromCourseAssit[]> {
-    if (!this.courseId) {
-      return of([]); // Devuelve un observable vacío si no hay curso
-    }
-    return this.assistanceService
-      .getAssistanceSalon(this.courseId, 1, 50, date)
-      .pipe(map((response) => response?.data?.students || []));
   }
 
   ngOnDestroy(): void {

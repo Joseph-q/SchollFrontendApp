@@ -68,6 +68,8 @@ export class HistorialTableComponent implements OnDestroy {
   onSelecDate(range: RangeDate) {
     if (!this.courseId) return;
 
+    if(this.rangeDate().startDate == range.startDate && this.rangeDate().endDate === range.endDate) return;
+
     this.historialAssistances$ = this.assistanceService
       .getHistorialAssistances({
         courseId: this.courseId,

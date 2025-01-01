@@ -30,7 +30,7 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 export class DatepickerPopupComponent {
   @Output() _userSelection: EventEmitter<void> = new EventEmitter();
 
-  selected = model<Date | null>(new Date());
+  selected = model<Date>(new Date());
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
   OnDateSelected() {
