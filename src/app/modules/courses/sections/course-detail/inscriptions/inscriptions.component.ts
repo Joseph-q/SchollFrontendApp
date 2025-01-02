@@ -32,7 +32,7 @@ export class InscriptionsComponent {
   @Input({ transform: numberAttribute }) set id(courseId: number) {
     this.dataSource = this.studentService.getStudents(
       1,
-      20,
+      25,
       undefined,
       courseId.toString()
     );
