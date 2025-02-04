@@ -6,7 +6,7 @@ Welcome to the **School Management Frontend** project! This application is built
 
 ### ✅ Prerequisites  
 **Before running the frontend**, ensure the **backend server** is up and running. You can find the backend repository here:  
-🔗 [School Backend App](https://github.com/Joseph-q/SchoolBackendApp)  
+🔗 [School Backend App](https://github.com/Joseph-q/SchollBackendApp)  
 
 ### 📌 Installation & Setup  
 
